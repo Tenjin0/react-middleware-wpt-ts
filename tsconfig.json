@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "module": "commonjs",
+    "sourceMap": true,
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "target": "es6",
+    "declaration": true
+  }
+}
