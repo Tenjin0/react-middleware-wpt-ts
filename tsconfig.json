@@ -7,7 +7,7 @@
     "sourceMap": true,
     "preserveConstEnums": true,
     "removeComments": true,
-    "target": "es6",
+    "target": "esnext",
     "declaration": true
   }
 }

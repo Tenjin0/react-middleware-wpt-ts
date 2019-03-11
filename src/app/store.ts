@@ -1,8 +1,9 @@
-import { applyMiddleware, compose, createStore} from 'redux'
+import { applyMiddleware, compose, createStore, Store} from 'redux'
 import * as io from 'socket.io-client';
 import { createWpsMiddleware } from "../../redux-wps-middleware/src"
 
 import reducer from "./reducers"
+import { EPluginName } from '../../redux-wps-middleware/src/constants/enum';
 
 interface IMyWindow extends Window {
 	process: any;
@@ -13,15 +14,15 @@ declare var window: IMyWindow;
 
 const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
 
-const socket = io('https://localhost:9963', {
+const socket = io('http://10.75.0.23:9963', {
     "reconnectionAttempts": 4,
 	"rejectUnauthorized": false
 })
 
 const wpsMiddleware = createWpsMiddleware(socket);
 
-
 const middleware: any[] = [ wpsMiddleware ]
+
 const enhancers = []
 
 if (typeof devToolsExtension === 'function') {
@@ -33,11 +34,9 @@ const composedEnhancers = compose(
 	...enhancers
 )
 
-
 // other import
 
-
-const store = createStore(
+const store: Store = createStore(
 	reducer,
 	composedEnhancers
 )

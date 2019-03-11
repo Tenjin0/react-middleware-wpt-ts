@@ -2,14 +2,16 @@ import store from "./app/store"
 
 import { addTodo } from "./app/actions"
 import { emit } from "../redux-wps-middleware/src"
-import {FastPrinter, UniversalTerminal } from "../redux-wps-middleware/src/wrappers"
+import {fastprinter, universalTerminal, msrreader } from "../redux-wps-middleware/src/wrappers"
+import { WPTWrapper } from "../redux-wps-middleware/src/wrappers/wpt";
 
 interface IMyWindow extends Window {
     store: typeof store;
     addTodo: typeof addTodo;
     emit: typeof emit;
-    Fastprinter: any
-    UniversalTerminal: any
+    Fastprinter: WPTWrapper
+    UniversalTerminal: WPTWrapper
+    MsrReader: WPTWrapper
 }
 
 declare var window: IMyWindow;
@@ -18,20 +20,7 @@ window.store = store
 window.addTodo = addTodo 
 window.emit = emit
 
-window.Fastprinter = {
-
-    printText: (text: string) => {
-        return FastPrinter.printText(store.dispatch, text)
-    },
-    getPrinters: () => {
-        return FastPrinter.getPrinters(store.dispatch)
-    }
-}
-
-window.UniversalTerminal =  {
-
-    input:(amount: number, currency: number, transactionid: string = null, operatorid: string = null) => {
-        return UniversalTerminal.input(store.dispatch, {amount, currency, transactionid, operatorid})
-
-    }
-}
+window.Fastprinter = fastprinter
+window.UniversalTerminal = universalTerminal
+window.UniversalTerminal = universalTerminal
+window.MsrReader = msrreader

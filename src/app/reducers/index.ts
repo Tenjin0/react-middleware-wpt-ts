@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
+import { combineReducers, Reducer } from 'redux'
 import todoReducer from './todo'
 import { wpsReducer } from '../../../redux-wps-middleware/src';
 
-const reducer = combineReducers({
+const reducer: Reducer = combineReducers({
     wyndpostools: wpsReducer,
     todo : todoReducer
 })
