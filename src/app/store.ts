@@ -1,9 +1,9 @@
 import { applyMiddleware, compose, createStore, Store} from 'redux'
 import * as io from 'socket.io-client';
-import { createWpsMiddleware } from "../../redux-wps-middleware/src"
+// import { createWpsMiddleware } from "../../redux-wps-middleware/src"
 
 import reducer from "./reducers"
-import { EPluginName } from '../../redux-wps-middleware/src/constants/enum';
+// import { EPluginName } from '../../redux-wps-middleware/src/constants/enum';
 
 interface IMyWindow extends Window {
 	process: any;
@@ -19,9 +19,9 @@ const socket = io('http://10.75.0.23:9963', {
 	"rejectUnauthorized": false
 })
 
-const wpsMiddleware = createWpsMiddleware(socket);
+// const wpsMiddleware = createWpsMiddleware(socket);
 
-const middleware: any[] = [ wpsMiddleware ]
+const middleware: any[] = [ ]
 
 const enhancers = []
 

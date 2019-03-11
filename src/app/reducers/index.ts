@@ -1,9 +1,9 @@
 import { combineReducers, Reducer } from 'redux'
 import todoReducer from './todo'
-import { wpsReducer } from '../../../redux-wps-middleware/src';
+// import { wpsReducer } from '../../../redux-wps-middleware/src';
 
 const reducer: Reducer = combineReducers({
-    wyndpostools: wpsReducer,
+    // wyndpostools: wpsReducer,
     todo : todoReducer
 })
 
