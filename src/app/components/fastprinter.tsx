@@ -1,22 +1,23 @@
 import * as React from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-
-export interface IFastprinterProps {
-}
+import { IFastprinterContainerProps } from "../containers/fastprinter"
+import AppFieldSet from "./common/fieldset"
+import { ERequestStatus } from '../../../redux-wps-middleware/src/constants/enum';
+import { Form, FormGroup, Label, Input, Button } from "reactstrap"
 export interface IFastprinterState {
     text: string
 }
-export default class Fastprinter extends React.Component<IFastprinterProps, IFastprinterState> {
+export default class Fastprinter extends React.Component<IFastprinterContainerProps, IFastprinterState> {
 
     constructor(props: any) {
         super(props)
         this.state = {
-            text: ""
+            text: "test with middleware"
         }
     }
 
     onClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-        console.log(e)
+        // console.log(e.target.value)
+        this.props.printText(this.state.text)
     }
 
     onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,18 +26,20 @@ export default class Fastprinter extends React.Component<IFastprinterProps, IFas
             text: e.target.value
         })
     }
+
     public render() {
+
         return (
-			<fieldset className="scheduler-border">
-            <legend className="scheduler-border">Fastprinter:</legend>
-				<Form>
-					<FormGroup>
-						<Label for="fastprinterText">Text</Label>
-						<Input onChange={this.onChangeText}type="text" name="fastprinter_text" id="fastprinterText" placeholder="text to print" />
-					</FormGroup>
-					<Button onClick={this.onClickHandler}>Submit</Button>
-				</Form>
-			</fieldset>
+            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.fastprinterRequest ? this.props.fastprinterRequest.status : ERequestStatus.NONE}>
+                <Form>
+                    <FormGroup>
+                        <Label for="fastprinterText">Text</Label>
+                        <Input onChange={this.onChangeText} type="text" name="fastprinter_text" id="fastprinterText" placeholder="text to print" value={this.state.text} />
+                    </FormGroup>
+                    <Button onClick={this.onClickHandler}>Submit</Button>
+                </Form>
+            </AppFieldSet>
+
         );
     }
 }

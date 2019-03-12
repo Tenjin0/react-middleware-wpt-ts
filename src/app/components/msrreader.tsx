@@ -1,28 +1,24 @@
 import * as React from 'react';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
+import AppFieldSet from "./common/fieldset"
+import { IMSRReaderContainerProps } from '../containers/msrreader';
+import { ERequestStatus } from '../../../redux-wps-middleware/src/constants/enum';
 
-export interface IMSRReaderProps {
-}
 
-export default class MSRReader extends React.Component<IMSRReaderProps, any> {
+export default class MSRReader extends React.Component<IMSRReaderContainerProps, any> {
 
-	onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-		this.setState({
-			...this.state,
-			text: ""
-		})
-	}
+
 	public render() {
+		const display = this.props.msrreaderPush && this.props.msrreaderPush.event === "data" ? this.props.msrreaderPush.data : ""
 		return (
-			<fieldset className="scheduler-border">
-				<legend className="scheduler-border">MSRReader:</legend>
+			<AppFieldSet name={this.props.name} started={this.props.started} status={this.props.msrreaderRequest ? this.props.msrreaderRequest.status : ERequestStatus.NONE}>
 				<Form>
 					<FormGroup>
 						<Label for="utDisplay">Display</Label>
-						<Input onChange={this.onChangeText} type="text" disabled={true} name="ut_display" id="utDisplay" placeholder="message from card" />
+						<Input type="text" disabled={true} name="ut_display" id="utDisplay" placeholder="message from card" value={display}/>
 					</FormGroup>
 				</Form>
-			</fieldset>
+			</AppFieldSet>
 
 		);
 	}

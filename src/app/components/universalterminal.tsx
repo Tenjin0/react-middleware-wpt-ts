@@ -1,62 +1,98 @@
 import * as React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import { checkPropTypes } from 'prop-types';
+import { IUniversalTerminalContainerProps } from '../containers/universalterminal';
+import AppFieldSet from "./common/fieldset"
+import { ERequestStatus, EAskSTatus } from '../../../redux-wps-middleware/src/constants/enum';
 
-export interface IUniversalTerminalProps {
-}
+
 export interface IUniversalTerminalState {
     amount: number
-    text: string
+    showAsk: boolean
+    display: string
 }
 
-export default class UniversalTerminal extends React.Component<IUniversalTerminalProps, IUniversalTerminalState> {
+export default class UniversalTerminal extends React.Component<IUniversalTerminalContainerProps, IUniversalTerminalState> {
 
     constructor(props: any) {
         super(props)
         this.state = {
-            amount: 1,
-            text: ""
+            amount: 100,
+            showAsk: false,
+            display: ""
         }
     }
 
-    onClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-        console.log(e)
-    }
+    onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const choice =  e.currentTarget.dataset && e.currentTarget.dataset.choice
+        switch (choice) {
+            case "confirm":
+                this.props.keyboardConfirm(true)
+                break;
+                case "abort":
+                this.props.keyboardConfirm(false)
+                break;
+                default:
+                this.props.input(this.state.amount)
 
-    onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState({
-            ...this.state,
-            text: ""
-        })
+                break;
+        }
     }
 
     onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+
         const amount = parseFloat(e.target.value)
         this.setState({
             ...this.state,
             amount: amount
         })
     }
+
+    componentWillReceiveProps(nextProps: IUniversalTerminalContainerProps) {
+
+        const newState : IUniversalTerminalState  = this.state;
+
+        if(nextProps.universalTerminalPush && nextProps.universalTerminalPush.event === "display") {
+            newState.display = nextProps.universalTerminalPush.data
+        }
+        newState.showAsk = nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent ? true: false
+        if(nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent) {
+            newState.display = nextProps.universalTerminalAsk.parameters.data;
+        }
+        console.log(newState)
+        this.setState(newState)
+
+        if(nextProps.universalTerminalAsk && (nextProps.universalTerminalAsk.status === EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.status === EAskSTatus.ABORTED)) {
+            this.props.clearPluginAskState()
+        }
+
+    }
+
     public render() {
+    
+        const display =  this.props.universalTerminalPush && this.props.universalTerminalPush.event && this.props.universalTerminalPush.event === "display" ? this.props.universalTerminalPush.data : ""
         return (
-			<fieldset className="scheduler-border">
-            <legend className="scheduler-border">UniversalTerminal:</legend>
+            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.status : ERequestStatus.NONE}>
                 <Form>
                     <FormGroup>
                         <Label for="utAmount">Amount</Label>
-                        <Input onChange={this.onChangeText} type="number" name="ut_amount" id="utAmount" placeholder="amount to debit" />
+                        <Input onChange={this.onChangeAmount} type="number" name="ut_amount" id="utAmount" placeholder="amount to debit" value={this.state.amount} />
                     </FormGroup>
                     <FormGroup>
                         <Label for="utDisplay">Display</Label>
-                        <Input onChange={this.onChangeText} type="text" disabled={true} name="ut_display" id="utDisplay" placeholder="message from TPE" />
+                        <Input type="text" disabled={true} name="ut_display" id="utDisplay" placeholder="message from TPE" value={this.state.display} />
                     </FormGroup>
                     <div>
-                        <Button onClick={this.onClickHandler}>Submit</Button>
-                        <Button color="success" onClick={this.onClickHandler}>Confirm</Button>
+ 
+                        {!this.state.showAsk && <Button onClick={this.onClickHandler}>Submit</Button> }
+                        {this.state.showAsk && <div>
+                            <Button color="success" data-choice="confirm" onClick={this.onClickHandler}>Confirm</Button>
+                            <Button color="danger" data-choice="abort" onClick={this.onClickHandler}>Abort</Button>
+                        </div>}
+
                     </div>
 
             </Form>
-            </fieldset>
+            </AppFieldSet>
 
         );
     }

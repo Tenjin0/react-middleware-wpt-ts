@@ -1,21 +1,35 @@
 import * as React from 'react';
+import { fastprinter } from "../../../redux-wps-middleware/src/wrappers"
 
-export interface IFastprinterProps {
-}
 
 import { connect } from 'react-redux';
 
 import FastprinterComponent from "../components/fastprinter"
 import { Dispatch } from 'redux';
+import { IAppState } from '../interface';
+import { IPluginState, IRequest } from '../../../redux-wps-middleware/src/constants/interface';
 
-const mapStateToProps = (state: any) => {
+export interface IFastprinterContainerProps {
+    name: string
+    started: boolean
+    fastprinterRequest: IRequest
+    printText: (text: string) => void
+}
+
+const mapStateToProps = (state: IAppState) => {
+
+    const plugin = state.wyndpostools.plugins["fastprinter"] as IPluginState 
     return {
-        ...state
+        name: "fastprinter",
+        started: plugin ? plugin.isStarted : null,
+        fastprinterRequest:plugin ? plugin.request: null
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
+
     return {
+        printText: (text: string) => fastprinter.printText(text)
     };
 }
-export default connect(null, null)(FastprinterComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(FastprinterComponent);
