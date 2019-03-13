@@ -1,9 +1,10 @@
 import { combineReducers, Reducer } from 'redux'
-import { wpsReducer } from "../../../redux-wps-middleware/src/"
+import { generateWpsReducer } from "../../../redux-wps-middleware/src/"
 import todoReducer from './todo'
+import { EPluginName } from '../../../redux-wps-middleware/src/constants/enum';
 
 const reducer: Reducer = combineReducers({
-    wyndpostools: wpsReducer,
+    wyndpostools: generateWpsReducer([EPluginName.FASTPRINTER], true),
     todo : todoReducer
 })
 

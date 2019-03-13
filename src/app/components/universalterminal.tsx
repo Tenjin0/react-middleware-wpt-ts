@@ -55,10 +55,12 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
             newState.display = nextProps.universalTerminalPush.data
         }
         newState.showAsk = nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent ? true: false
+
         if(nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent) {
             newState.display = nextProps.universalTerminalAsk.parameters.data;
         }
-        console.log(newState)
+
+
         this.setState(newState)
 
         if(nextProps.universalTerminalAsk && (nextProps.universalTerminalAsk.status === EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.status === EAskSTatus.ABORTED)) {

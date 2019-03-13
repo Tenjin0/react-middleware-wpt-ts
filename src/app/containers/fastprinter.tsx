@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 import FastprinterComponent from "../components/fastprinter"
 import { Dispatch } from 'redux';
 import { IAppState } from '../interface';
-import { IPluginState, IRequest } from '../../../redux-wps-middleware/src/constants/interface';
+import { IPluginState, IPluginStateRequest } from '../../../redux-wps-middleware/src/constants/interface';
 
 export interface IFastprinterContainerProps {
     name: string
     started: boolean
-    fastprinterRequest: IRequest
+    fastprinterRequest: IPluginStateRequest
     printText: (text: string) => void
 }
 

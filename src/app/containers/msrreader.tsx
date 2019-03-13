@@ -3,9 +3,9 @@ import * as React from 'react';
 export interface IMSRReaderContainerProps {
     name: string
     started: boolean
-    msrreaderRequest: IRequest
-    msrreaderPush: IPush
-    msrreaderAsk: IAsk
+    msrreaderRequest: IPluginStateRequest
+    msrreaderPush: IPluginStatePush
+    msrreaderAsk: IPluginStateAsk
     printText: (text: string) => void
 }
 
@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 import MSRReaderComponent from "../components/msrreader"
 import { Dispatch } from 'redux';
-import { IRequest, IPluginState, IPush, IAsk } from '../../../redux-wps-middleware/src/constants/interface';
+import { IPluginStateRequest, IPluginState, IPluginStatePush, IPluginStateAsk } from '../../../redux-wps-middleware/src/constants/interface';
 import { IAppState } from '../interface';
 import { EPluginName } from '../../../redux-wps-middleware/src/constants/enum';
 

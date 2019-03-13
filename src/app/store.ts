@@ -1,6 +1,6 @@
 import { applyMiddleware, compose, createStore, Store} from 'redux'
 import * as io from 'socket.io-client';
-import { createWpsMiddleware } from "../../redux-wps-middleware/src"
+import { createWpsMiddleware  } from "../../redux-wps-middleware/src"
 
 import reducer from "./reducers"
 interface IMyWindow extends Window {

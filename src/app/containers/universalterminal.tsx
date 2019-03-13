@@ -4,9 +4,9 @@ import { universalTerminal } from "../../../redux-wps-middleware/src/wrappers"
 export interface IUniversalTerminalContainerProps {
     name: string,
     started: boolean,
-    universalTerminalRequest: IRequest,
-    universalTerminalPush: IPush
-    universalTerminalAsk: IAsk
+    universalTerminalRequest: IPluginStateRequest,
+    universalTerminalPush: IPluginStatePush
+    universalTerminalAsk: IPluginStateAsk
     input: (amount: number) => void
     keyboardConfirm: (validation: boolean) => void,
     clearPluginAskState: () => void
@@ -18,7 +18,7 @@ import UniversalterminalComponent from "../components/universalterminal"
 import { Dispatch } from 'redux';
 import { EPluginName } from '../../../redux-wps-middleware/src/constants/enum';
 import { IAppState } from '../interface';
-import { IPluginState, IRequest, IPush, IAsk } from '../../../redux-wps-middleware/src/constants/interface';
+import { IPluginState, IPluginStateRequest, IPluginStatePush, IPluginStateAsk } from '../../../redux-wps-middleware/src/constants/interface';
 
 const mapStateToProps = (state: IAppState) => {
 
