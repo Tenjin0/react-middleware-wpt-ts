@@ -10,10 +10,11 @@ import App from "./app/App"
 
 import "./app/app.scss";
 
+import middleware from "@wynd/redux-wps-middleware"
+console.log(middleware)
 
-import { emit } from "../redux-wps-middleware/src"
-import {fastprinter, universalTerminal, msrreader } from "../redux-wps-middleware/src/wrappers"
-import { WPTWrapper } from "../redux-wps-middleware/src/wrappers/wpt";
+import {emit, fastprinter, universalTerminal, msrreader, WPTWrapper } from "@wynd/redux-wps-middleware"
+
 
 interface IMyWindow extends Window {
     store: typeof store;

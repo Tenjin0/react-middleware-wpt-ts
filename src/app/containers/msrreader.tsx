@@ -13,9 +13,9 @@ import { connect } from 'react-redux';
 
 import MSRReaderComponent from "../components/msrreader"
 import { Dispatch } from 'redux';
-import { IPluginStateRequest, IPluginState, IPluginStatePush, IPluginStateAsk } from '../../../redux-wps-middleware/src/constants/interface';
+import { IPluginStateRequest, IPluginState, IPluginStatePush, IPluginStateAsk } from '@wynd/redux-wps-middleware';
+import { EPluginName } from '@wynd/redux-wps-middleware';
 import { IAppState } from '../interface';
-import { EPluginName } from '../../../redux-wps-middleware/src/constants/enum';
 
 
 const mapStateToProps = (state: IAppState) => {

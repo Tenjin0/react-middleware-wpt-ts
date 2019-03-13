@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { IUniversalTerminalContainerProps } from '../containers/universalterminal';
 import AppFieldSet from "./common/fieldset"
-import { ERequestStatus, EAskSTatus } from '../../../redux-wps-middleware/src/constants/enum';
+import { ERequestStatus, EAskSTatus } from '@wynd/redux-wps-middleware';
 
 
 export interface IUniversalTerminalState {

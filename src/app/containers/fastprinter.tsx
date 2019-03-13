@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { fastprinter } from "../../../redux-wps-middleware/src/wrappers"
-
+import {googleFetchThenPrint} from "../actions"
 
 import { connect } from 'react-redux';
 
 import FastprinterComponent from "../components/fastprinter"
-import { Dispatch } from 'redux';
+import { Dispatch, Action } from 'redux';
 import { IAppState } from '../interface';
-import { IPluginState, IPluginStateRequest } from '../../../redux-wps-middleware/src/constants/interface';
+import { IPluginState, IPluginStateRequest } from '@wynd/redux-wps-middleware';
+import { ThunkDispatch } from 'redux-thunk';
 
 export interface IFastprinterContainerProps {
     name: string
@@ -26,10 +26,10 @@ const mapStateToProps = (state: IAppState) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, void, Action>) => {
 
     return {
-        printText: (text: string) => fastprinter.printText(text)
+    printText: (text: string) => dispatch(googleFetchThenPrint())
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FastprinterComponent);

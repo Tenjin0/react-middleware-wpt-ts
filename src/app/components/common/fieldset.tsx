@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Badge, Row } from 'reactstrap';
-import { ERequestStatus } from "../../../../redux-wps-middleware/src/constants/enum";
+import { ERequestStatus } from "@wynd/redux-wps-middleware";
 
 
 interface IFieldsetProps {

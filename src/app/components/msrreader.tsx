@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import AppFieldSet from "./common/fieldset"
 import { IMSRReaderContainerProps } from '../containers/msrreader';
-import { ERequestStatus } from '../../../redux-wps-middleware/src/constants/enum';
+import { ERequestStatus } from '@wynd/redux-wps-middleware';
 
 
 export default class MSRReader extends React.Component<IMSRReaderContainerProps, any> {

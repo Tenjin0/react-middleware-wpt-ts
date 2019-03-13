@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { universalTerminal } from "../../../redux-wps-middleware/src/wrappers"
+import { universalTerminal } from "@wynd/redux-wps-middleware"
 
 export interface IUniversalTerminalContainerProps {
     name: string,
@@ -16,9 +16,9 @@ import { connect } from 'react-redux';
 
 import UniversalterminalComponent from "../components/universalterminal"
 import { Dispatch } from 'redux';
-import { EPluginName } from '../../../redux-wps-middleware/src/constants/enum';
+import { EPluginName } from '@wynd/redux-wps-middleware';
 import { IAppState } from '../interface';
-import { IPluginState, IPluginStateRequest, IPluginStatePush, IPluginStateAsk } from '../../../redux-wps-middleware/src/constants/interface';
+import { IPluginState, IPluginStateRequest, IPluginStatePush, IPluginStateAsk } from '@wynd/redux-wps-middleware';
 
 const mapStateToProps = (state: IAppState) => {
 

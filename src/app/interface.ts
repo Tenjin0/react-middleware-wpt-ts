@@ -1,4 +1,4 @@
-import { IWPTState } from "../../redux-wps-middleware/src/constants/interface";
+import { IWPTState } from "@wynd/redux-wps-middleware";
 
 export interface ITODO {
     text: string,

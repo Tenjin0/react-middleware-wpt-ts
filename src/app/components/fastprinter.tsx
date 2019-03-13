@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IFastprinterContainerProps } from "../containers/fastprinter"
 import AppFieldSet from "./common/fieldset"
-import { ERequestStatus } from '../../../redux-wps-middleware/src/constants/enum';
+import { ERequestStatus } from '@wynd/redux-wps-middleware';
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
 export interface IFastprinterState {
     text: string
