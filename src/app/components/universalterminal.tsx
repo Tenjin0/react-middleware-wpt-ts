@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { IUniversalTerminalContainerProps } from '../containers/universalterminal';
 import AppFieldSet from "./common/fieldset"
-import { ERequestStatus, EAskSTatus } from '@wynd/redux-wps-middleware';
+import { RWMEnum } from '@wynd/redux-wps-middleware';
 
 
 export interface IUniversalTerminalState {
@@ -63,7 +63,7 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
 
         this.setState(newState)
 
-        if(nextProps.universalTerminalAsk && (nextProps.universalTerminalAsk.status === EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.status === EAskSTatus.ABORTED)) {
+        if(nextProps.universalTerminalAsk && (nextProps.universalTerminalAsk.status === RWMEnum.EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.status === RWMEnum.EAskSTatus.ABORTED)) {
             this.props.clearPluginAskState()
         }
 
@@ -73,7 +73,7 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
     
         const display =  this.props.universalTerminalPush && this.props.universalTerminalPush.event && this.props.universalTerminalPush.event === "display" ? this.props.universalTerminalPush.data : ""
         return (
-            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.status : ERequestStatus.NONE}>
+            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.status : RWMEnum.ERequestStatus.NONE}>
                 <Form>
                     <FormGroup>
                         <Label for="utAmount">Amount</Label>

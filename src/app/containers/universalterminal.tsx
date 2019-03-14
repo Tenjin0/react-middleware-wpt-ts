@@ -1,30 +1,27 @@
 import * as React from 'react';
-import { universalTerminal } from "@wynd/redux-wps-middleware"
-
-export interface IUniversalTerminalContainerProps {
-    name: string,
-    started: boolean,
-    universalTerminalRequest: IPluginStateRequest,
-    universalTerminalPush: IPluginStatePush
-    universalTerminalAsk: IPluginStateAsk
-    input: (amount: number) => void
-    keyboardConfirm: (validation: boolean) => void,
-    clearPluginAskState: () => void
-}
+import { universalTerminal, RWMEnum, RWMInterface } from "@wynd/redux-wps-middleware"
 
 import { connect } from 'react-redux';
 
 import UniversalterminalComponent from "../components/universalterminal"
 import { Dispatch } from 'redux';
-import { EPluginName } from '@wynd/redux-wps-middleware';
 import { IAppState } from '../interface';
-import { IPluginState, IPluginStateRequest, IPluginStatePush, IPluginStateAsk } from '@wynd/redux-wps-middleware';
 
+export interface IUniversalTerminalContainerProps {
+    name: string,
+    started: boolean,
+    universalTerminalRequest: RWMInterface.IPluginStateRequest,
+    universalTerminalPush: RWMInterface.IPluginStatePush
+    universalTerminalAsk: RWMInterface.IPluginStateAsk
+    input: (amount: number) => void
+    keyboardConfirm: (validation: boolean) => void,
+    clearPluginAskState: () => void
+}
 const mapStateToProps = (state: IAppState) => {
 
-    const plugin = state.wyndpostools.plugins[EPluginName.UNIVERSALTERMINAL] as IPluginState
+    const plugin = state.wyndpostools.plugins[RWMEnum.EPluginName.UNIVERSALTERMINAL] as RWMInterface.IPluginState
     return {
-        name: EPluginName.UNIVERSALTERMINAL,
+        name: RWMEnum.EPluginName.UNIVERSALTERMINAL,
         started: plugin ? plugin.isStarted : null,
         universalTerminalRequest:plugin ? plugin.request: null,
         universalTerminalPush: plugin ? plugin.push: null,
