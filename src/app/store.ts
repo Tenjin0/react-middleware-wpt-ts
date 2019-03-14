@@ -1,6 +1,5 @@
 import { applyMiddleware, compose, createStore, Store} from 'redux'
 import * as io from 'socket.io-client';
-import thunk from 'redux-thunk';
 
 import { createWpsMiddleware  } from "@wynd/redux-wps-middleware"
 
@@ -22,7 +21,7 @@ const socket = io(ip, {
 
 const wpsMiddleware = createWpsMiddleware(socket);
 
-const middleware: any[] = [ wpsMiddleware, thunk ]
+const middleware: any[] = [ wpsMiddleware ]
 
 const enhancers = []
 
