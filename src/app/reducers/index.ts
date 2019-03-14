@@ -1,9 +1,12 @@
 import { combineReducers, Reducer } from 'redux'
 import todoReducer from './todo'
-import { RWMEnum, generateWpsReducer } from "@wynd/redux-wps-middleware"
-
+import { RWMEnum, generateWpsReducer, RWMInterface } from "@wynd/redux-wps-middleware"
+const opts: RWMInterface.TOptionState = {
+    autogenerate: false,
+    immutable: true
+}
 const reducer: Reducer = combineReducers({
-    wyndpostools: generateWpsReducer([RWMEnum.EPluginName.FASTPRINTER], true),
+    wyndpostools: generateWpsReducer([RWMEnum.EPluginName.FASTPRINTER, RWMEnum.EPluginName.UNIVERSALTERMINAL], opts),
     todo : todoReducer
 })
 

@@ -6,26 +6,27 @@ import { connect } from 'react-redux';
 import UniversalterminalComponent from "../components/universalterminal"
 import { Dispatch } from 'redux';
 import { IAppState } from '../interface';
+import {Map} from "immutable"
 
 export interface IUniversalTerminalContainerProps {
     name: string,
     started: boolean,
-    universalTerminalRequest: RWMInterface.IPluginStateRequest,
-    universalTerminalPush: RWMInterface.IPluginStatePush
-    universalTerminalAsk: RWMInterface.IPluginStateAsk
+    universalTerminalRequest:  Map<any, any>
+    universalTerminalPush:  Map<any, any>
+    universalTerminalAsk:  Map<any, any>
     input: (amount: number) => void
     keyboardConfirm: (validation: boolean) => void,
     clearPluginAskState: () => void
 }
 const mapStateToProps = (state: IAppState) => {
-
-    const plugin = state.wyndpostools.plugins[RWMEnum.EPluginName.UNIVERSALTERMINAL] as RWMInterface.IPluginState
+    const wptState = state.wyndpostools as unknown as Map<any, any>
+    const plugin = wptState.getIn(["plugins", "universalterminal"])
     return {
         name: RWMEnum.EPluginName.UNIVERSALTERMINAL,
-        started: plugin ? plugin.isStarted : null,
-        universalTerminalRequest:plugin ? plugin.request: null,
-        universalTerminalPush: plugin ? plugin.push: null,
-        universalTerminalAsk: plugin ? plugin.ask: null
+        started: plugin ? plugin.get("isStarted") : null,
+        universalTerminalRequest:plugin ? plugin.get("request"): null,
+        universalTerminalPush: plugin ? plugin.get("push"): null,
+        universalTerminalAsk: plugin ? plugin.get("ask"): null
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch) => {

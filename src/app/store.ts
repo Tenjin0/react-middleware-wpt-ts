@@ -4,6 +4,7 @@ import * as io from 'socket.io-client';
 import { createWpsMiddleware  } from "@wynd/redux-wps-middleware"
 
 import reducer from "./reducers"
+import { fromJS, Map } from 'immutable';
 interface IMyWindow extends Window {
 	process: any;
 	__REDUX_DEVTOOLS_EXTENSION__(): any;
@@ -35,7 +36,6 @@ const composedEnhancers = compose(
 )
 
 // other import
-
 const store: Store = createStore(
 	reducer,
 	composedEnhancers

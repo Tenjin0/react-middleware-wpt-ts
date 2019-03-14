@@ -6,20 +6,21 @@ import FastprinterComponent from "../components/fastprinter"
 import { Action, Dispatch } from 'redux';
 import { IAppState } from '../interface';
 import { RWMInterface, fastprinter } from '@wynd/redux-wps-middleware';
+import { isImmutable, Map } from "immutable";
 export interface IFastprinterContainerProps {
     name: string
     started: boolean
-    fastprinterRequest: RWMInterface.IPluginStateRequest
+    fastprinterRequest: Map<any, any>
     printText: (text: string) => void
 }
 
 const mapStateToProps = (state: IAppState) => {
-
-    const plugin = state.wyndpostools.plugins["fastprinter"] as RWMInterface.IPluginState 
+    const wptState = state.wyndpostools as unknown as Map<any, any>
+    const plugin: Map<any, any> = wptState.getIn(["plugins", "fastprinter"])
     return {
         name: "fastprinter",
-        started: plugin ? plugin.isStarted : null,
-        fastprinterRequest:plugin ? plugin.request: null
+        started: plugin ? plugin.get("isStarted") : null,
+        fastprinterRequest:plugin ? plugin.get("request"): null,
     }
 }
 

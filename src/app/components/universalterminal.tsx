@@ -51,19 +51,19 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
 
         const newState : IUniversalTerminalState  = this.state;
 
-        if(nextProps.universalTerminalPush && nextProps.universalTerminalPush.event === "display") {
-            newState.display = nextProps.universalTerminalPush.data
+        if(nextProps.universalTerminalPush &&  nextProps.universalTerminalPush.get("event") === "display") {
+            newState.display = nextProps.universalTerminalPush.get("data")
         }
-        newState.showAsk = nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent ? true: false
+        newState.showAsk = nextProps.universalTerminalAsk && nextProps.universalTerminalAsk.get('currentEvent') ? true: false
 
-        if(nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent) {
-            newState.display = nextProps.universalTerminalAsk.parameters.data;
+        if(nextProps.universalTerminalAsk && nextProps.universalTerminalAsk.get('currentEvent')) {
+            newState.display = nextProps.universalTerminalAsk.getIn(['parameters', 'data']);
         }
 
 
         this.setState(newState)
 
-        if(nextProps.universalTerminalAsk && (nextProps.universalTerminalAsk.status === RWMEnum.EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.status === RWMEnum.EAskSTatus.ABORTED)) {
+        if(nextProps.universalTerminalAsk &&(nextProps.universalTerminalAsk.get('status') === RWMEnum.EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.get('status') === RWMEnum.EAskSTatus.ABORTED)) {
             this.props.clearPluginAskState()
         }
 
@@ -71,9 +71,9 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
 
     public render() {
     
-        const display =  this.props.universalTerminalPush && this.props.universalTerminalPush.event && this.props.universalTerminalPush.event === "display" ? this.props.universalTerminalPush.data : ""
+        const display =  this.props.universalTerminalPush &&  this.props.universalTerminalPush.get("event") && this.props.universalTerminalPush.get("event") === "display" ? this.props.universalTerminalPush.get("data") : ""
         return (
-            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.status : RWMEnum.ERequestStatus.NONE}>
+            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.get("status") : RWMEnum.ERequestStatus.NONE}>
                 <Form>
                     <FormGroup>
                         <Label for="utAmount">Amount</Label>

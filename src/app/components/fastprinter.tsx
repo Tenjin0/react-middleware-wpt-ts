@@ -3,9 +3,11 @@ import { IFastprinterContainerProps } from "../containers/fastprinter"
 import AppFieldSet from "./common/fieldset"
 import { RWMEnum } from '@wynd/redux-wps-middleware';
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
+
 export interface IFastprinterState {
     text: string
 }
+
 export default class Fastprinter extends React.Component<IFastprinterContainerProps, IFastprinterState> {
 
     constructor(props: any) {
@@ -28,9 +30,9 @@ export default class Fastprinter extends React.Component<IFastprinterContainerPr
     }
 
     public render() {
-
+        console.log(this.props.fastprinterRequest)
         return (
-            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.fastprinterRequest ? this.props.fastprinterRequest.status : RWMEnum.ERequestStatus.NONE}>
+            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.fastprinterRequest ? this.props.fastprinterRequest.get("status") : RWMEnum.ERequestStatus.NONE}>
                 <Form>
                     <FormGroup>
                         <Label for="fastprinterText">Text</Label>
