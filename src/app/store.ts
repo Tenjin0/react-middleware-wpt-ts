@@ -22,7 +22,7 @@ const socket = io(ip, {
 
 const wpsMiddleware = createWpsMiddleware(socket);
 
-const middleware: any[] = [ wpsMiddleware  ]
+const middleware: any[] = [ wpsMiddleware, thunk ]
 
 const enhancers = []
 

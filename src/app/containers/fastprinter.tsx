@@ -1,12 +1,12 @@
-import * as React from 'react';
 import {googleFetchThenPrint} from "../actions"
 
 import { connect } from 'react-redux';
 
 import FastprinterComponent from "../components/fastprinter"
-import { Dispatch } from 'redux';
+import { Action } from 'redux';
 import { IAppState } from '../interface';
-import { RWMInterface, fastprinter } from '@wynd/redux-wps-middleware';
+import { RWMInterface } from '@wynd/redux-wps-middleware';
+import { ThunkDispatch } from 'redux-thunk';
 export interface IFastprinterContainerProps {
     name: string
     started: boolean
@@ -24,10 +24,10 @@ const mapStateToProps = (state: IAppState) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, void, Action>) => {
 
     return {
-    printText: (text: string) => fastprinter.printText(text)
+        printText: (text: string) => dispatch(googleFetchThenPrint(text))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FastprinterComponent);

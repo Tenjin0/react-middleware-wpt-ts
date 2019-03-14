@@ -10,7 +10,7 @@ export const addTodo = (text: string) => {
     }
 }
 
-export function googleFetchThenPrint() : (Dispatch: Dispatch) => void{
+export function googleFetchThenPrint(text: string) : (Dispatch: Dispatch) => void{
     return (dispatch: Dispatch) => {
 
         let headers = new Headers();
