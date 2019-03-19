@@ -1,12 +1,12 @@
 import * as React from "react"
 import { Badge, Row } from 'reactstrap';
-import { ERequestStatus } from "../../../../redux-wps-middleware/src/constants/enum";
+import { RWMEnum } from "@wynd/redux-wps-middleware";
 
 
 interface IFieldsetProps {
     name: string,
     started: boolean,
-    status: ERequestStatus
+    status: RWMEnum.ERequestStatus
 
 }
 
@@ -15,7 +15,7 @@ interface IStatusProps {
 }
 
 interface IStatusRequestProps {
-    status: ERequestStatus
+    status: RWMEnum.ERequestStatus
 }
 
 const StatusPlugin: React.SFC<IStatusProps> = (props) => {
@@ -30,15 +30,15 @@ const StatusPlugin: React.SFC<IStatusProps> = (props) => {
 const StatusRequest: React.SFC<IStatusRequestProps> = ({ status }) => {
 
     switch (status) {
-        case ERequestStatus.NONE:
+        case RWMEnum.ERequestStatus.NONE:
             return (<Badge color="secondary">{status}</Badge>)
-        case ERequestStatus.SENT:
-        case ERequestStatus.RUNNING:
+        case RWMEnum.ERequestStatus.SENT:
+        case RWMEnum.ERequestStatus.RUNNING:
             return (<Badge color="primary">{status}</Badge>)
             break;
-        case ERequestStatus.ERROR:
+        case RWMEnum.ERequestStatus.ERROR:
             return (<Badge color="danger">{status}</Badge>)
-        case ERequestStatus.COMPLETED:
+        case RWMEnum.ERequestStatus.COMPLETED:
             return (<Badge color="primary">{status}</Badge>)
         default:
             return (<Badge color="secondary">{status}</Badge>)

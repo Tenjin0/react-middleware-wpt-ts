@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IFastprinterContainerProps } from "../containers/fastprinter"
 import AppFieldSet from "./common/fieldset"
-import { ERequestStatus } from '../../../redux-wps-middleware/src/constants/enum';
+import { RWMEnum, fastprinter } from '@wynd/redux-wps-middleware';
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
 export interface IFastprinterState {
     text: string
@@ -17,7 +17,7 @@ export default class Fastprinter extends React.Component<IFastprinterContainerPr
 
     onClickHandler = (e: React.MouseEvent<HTMLElement>) => {
         // console.log(e.target.value)
-        this.props.printText(this.state.text)
+        fastprinter.printText(this.state.text)
     }
 
     onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ export default class Fastprinter extends React.Component<IFastprinterContainerPr
     public render() {
 
         return (
-            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.fastprinterRequest ? this.props.fastprinterRequest.status : ERequestStatus.NONE}>
+            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.fastprinterRequest ? this.props.fastprinterRequest.status : RWMEnum.ERequestStatus.NONE}>
                 <Form>
                     <FormGroup>
                         <Label for="fastprinterText">Text</Label>

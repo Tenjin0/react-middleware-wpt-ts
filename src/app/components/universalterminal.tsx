@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { IUniversalTerminalContainerProps } from '../containers/universalterminal';
 import AppFieldSet from "./common/fieldset"
-import { ERequestStatus, EAskSTatus } from '../../../redux-wps-middleware/src/constants/enum';
+import { RWMEnum } from '@wynd/redux-wps-middleware';
 
 
 export interface IUniversalTerminalState {
@@ -51,19 +51,19 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
 
         const newState : IUniversalTerminalState  = this.state;
 
-        if(nextProps.universalTerminalPush && nextProps.universalTerminalPush.event === "display") {
+        if(nextProps.universalTerminalPush && nextProps.universalTerminalPush.eventAction === "display") {
             newState.display = nextProps.universalTerminalPush.data
         }
-        newState.showAsk = nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent ? true: false
+        newState.showAsk = nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEventAction ? true: false
 
-        if(nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEvent) {
+        if(nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEventAction) {
             newState.display = nextProps.universalTerminalAsk.parameters.data;
         }
 
 
         this.setState(newState)
 
-        if(nextProps.universalTerminalAsk && (nextProps.universalTerminalAsk.status === EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.status === EAskSTatus.ABORTED)) {
+        if(nextProps.universalTerminalAsk && (nextProps.universalTerminalAsk.status === RWMEnum.EAskSTatus.CONFIRMED || nextProps.universalTerminalAsk.status === RWMEnum.EAskSTatus.ABORTED)) {
             this.props.clearPluginAskState()
         }
 
@@ -71,9 +71,9 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
 
     public render() {
     
-        const display =  this.props.universalTerminalPush && this.props.universalTerminalPush.event && this.props.universalTerminalPush.event === "display" ? this.props.universalTerminalPush.data : ""
+        const display =  this.props.universalTerminalPush && this.props.universalTerminalPush.eventAction && this.props.universalTerminalPush.eventAction === "display" ? this.props.universalTerminalPush.data : ""
         return (
-            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.status : ERequestStatus.NONE}>
+            <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.status : RWMEnum.ERequestStatus.NONE}>
                 <Form>
                     <FormGroup>
                         <Label for="utAmount">Amount</Label>

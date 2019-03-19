@@ -1,16 +1,15 @@
-import { IWPTState } from "../../redux-wps-middleware/src/constants/interface";
+import { RWMInterface } from "@wynd/redux-wps-middleware";
 
 export interface ITODO {
     text: string,
     completed: false
 }
 
-
 export interface ITodoState {
     todos: ITODO[]
 }
 
 export interface IAppState {
-    wyndpostools: IWPTState,
+    wyndpostools: RWMInterface.IWPTState,
     todo : ITodoState
 }
