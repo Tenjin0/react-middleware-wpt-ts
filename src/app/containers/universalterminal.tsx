@@ -1,7 +1,5 @@
-import * as React from 'react';
-import { universalTerminal, RWMEnum, RWMInterface} from "@wynd/redux-wps-middleware"
+import { universalTerminal, RWMEnum, RWMInterface } from "@wynd/redux-wps-middleware"
 import { connect } from 'react-redux';
-
 import UniversalterminalComponent from "../components/universalterminal"
 import { Dispatch } from 'redux';
 import { IAppState } from '../interface';
@@ -15,8 +13,6 @@ export interface IUniversalTerminalContainerProps {
     keyboardConfirm: (validation: boolean) => void,
     clearPluginAskState: () => void
 }
-
-
 
 const mapStateToProps = (state: IAppState) => {
 

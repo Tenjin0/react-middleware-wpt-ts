@@ -22,7 +22,6 @@ export default class Fastprinter extends React.Component<IFastprinterContainerPr
 
     onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
-            ...this.state,
             text: e.target.value
         })
     }

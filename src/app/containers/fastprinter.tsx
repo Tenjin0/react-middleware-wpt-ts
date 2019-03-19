@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
 
 import FastprinterComponent from "../components/fastprinter"
-import { Dispatch } from 'redux';
+import { Action, Dispatch } from 'redux';
 import { IAppState } from '../interface';
 import { RWMInterface, fastprinter, clearWptStateAction, RWMEnum } from '@wynd/redux-wps-middleware';
-
 export interface IFastprinterContainerProps {
     name: string
     started: boolean
     fastprinterRequest: RWMInterface.IPluginStateRequest
     printText: (text: string) => void
+    clearFastprinterRequest: (pluginName: RWMEnum.EPluginName, subField : RWMEnum.ESubField) => void
 }
 
 const mapStateToProps = (state: IAppState) => {

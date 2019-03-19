@@ -3,13 +3,12 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const devMode = process.env.NODE_ENV ? process.env.NODE_ENV === "development" : true
-
 const config = {
-  mode: "development",
+  mode: devMode ?"development" : "production",
   entry: {
-    app: [path.join(__dirname, './src/index.tsx'), 'webpack-hot-middleware/client'],
+    app: [path.join(__dirname, './src/index.tsx')],
     vendor: [
-      'react', 'react-dom', 'redux', 'react-redux', 'reactstrap', 'socket.io-client'
+      'react', 'react-dom', 'redux', 'react-redux', 'reactstrap', 'socket.io-client', 'redux-thunk'
     ]
   },
   output: {
@@ -28,14 +27,6 @@ const config = {
       {
         test: /\.(ts|tsx)$/,
         loader: 'ts-loader'
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-        },
       },
       {
         test: /\.(css|sass|scss)$/,
@@ -87,6 +78,10 @@ const config = {
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
+}
+
+if (devMode) {
+  config.entry.app.push('webpack-hot-middleware/client')
 }
 
 module.exports = config

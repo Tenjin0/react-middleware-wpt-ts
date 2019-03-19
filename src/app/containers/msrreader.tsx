@@ -10,11 +10,16 @@ export interface IMSRReaderContainerProps {
     msrreaderRequest: RWMInterface.IPluginStateRequest
     msrreaderPush: RWMInterface.IPluginStatePush
     msrreaderAsk: RWMInterface.IPluginStateAsk
-    printText: (text: string) => void
 }
 
 
-
+export interface IMSRReaderContainerProps {
+    name: string
+    started: boolean
+    msrreaderRequest: RWMInterface.IPluginStateRequest
+    msrreaderPush: RWMInterface.IPluginStatePush
+    msrreaderAsk: RWMInterface.IPluginStateAsk
+}
 
 const mapStateToProps = (state: IAppState) => {
 
