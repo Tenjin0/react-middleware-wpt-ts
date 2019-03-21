@@ -2,7 +2,9 @@ import { universalTerminal, RWMEnum, RWMInterface } from "@wynd/redux-wps-middle
 import { connect } from 'react-redux';
 import UniversalterminalComponent from "../components/universalterminal"
 import { Dispatch } from 'redux';
-import { IAppState } from '../interface';
+import { IAppState } from '../interface'
+
+
 export interface IUniversalTerminalContainerProps {
     name: string,
     started: boolean,
@@ -29,7 +31,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         input: (amount: number) => universalTerminal.input({amount: amount, currency: 978, transactionid: "000000001", operatorid:"02"}),
         keyboardConfirm: (validation: boolean) => universalTerminal.keyboardConfirm(validation),
-        clearPluginAskState: () => universalTerminal.clearPluginAskState()
+        clearPluginAskState: () => universalTerminal.dispatchClearPluginAskState()
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(UniversalterminalComponent);
