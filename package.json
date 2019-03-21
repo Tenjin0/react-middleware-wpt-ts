@@ -9,7 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wynd/redux-wps-middleware": "^1.0.0",
     "autoprefixer": "^9.4.10",
     "babel-loader": "^8.0.5",
     "bootstrap": "^4.3.1",

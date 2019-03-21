@@ -9,6 +9,7 @@ export interface IFastprinterState {
 export default class Fastprinter extends React.Component<IFastprinterContainerProps, IFastprinterState> {
 
     constructor(props: any) {
+
         super(props)
         this.state = {
             text: "test with middleware"

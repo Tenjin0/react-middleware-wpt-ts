@@ -1,7 +1,7 @@
 import { applyMiddleware, compose, createStore, Store} from 'redux'
 import * as io from 'socket.io-client';
 
-import { createWpsMiddleware  } from "@wynd/redux-wps-middleware"
+import { createWpsMiddleware, universalTerminal, RWMInterface, RWMEnum  } from "@wynd/redux-wps-middleware"
 
 import reducer from "./reducers"
 interface IMyWindow extends Window {
@@ -36,8 +36,10 @@ const composedEnhancers = compose(
 
 // other import
 
+
 const store: Store = createStore(
 	reducer,
 	composedEnhancers
 )
 export default store
+
