@@ -48,18 +48,20 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
     }
 
     componentWillReceiveProps(nextProps: IUniversalTerminalContainerProps) {
+        const newState : IUniversalTerminalState  = {
+            ...this.state
+        };
 
-        const newState : IUniversalTerminalState  = this.state;
-
-        if(nextProps.universalTerminalPush && nextProps.universalTerminalPush.eventAction === "display") {
-            newState.display = nextProps.universalTerminalPush.data
+        if(nextProps.universalTerminalRequest && nextProps.universalTerminalRequest.status === RWMEnum.ERequestStatus.ERROR) {
+            newState.display = nextProps.universalTerminalRequest.error.message
+        } else if(nextProps.universalTerminalAsk && nextProps.universalTerminalAsk.currentEventAction) {
+                newState.display = nextProps.universalTerminalAsk.parameters.data;
+        } else if(nextProps.universalTerminalPush && nextProps.universalTerminalPush.display) {
+            newState.display = nextProps.universalTerminalPush.display
+        } else {
+            newState.display = ""
         }
         newState.showAsk = nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEventAction ? true: false
-
-        if(nextProps.universalTerminalAsk &&  nextProps.universalTerminalAsk.currentEventAction) {
-            newState.display = nextProps.universalTerminalAsk.parameters.data;
-        }
-
 
         this.setState(newState)
 
@@ -70,8 +72,6 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
     }
 
     public render() {
-    
-        const display =  this.props.universalTerminalPush && this.props.universalTerminalPush.eventAction && this.props.universalTerminalPush.eventAction === "display" ? this.props.universalTerminalPush.data : ""
         return (
             <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.universalTerminalRequest ? this.props.universalTerminalRequest.status : RWMEnum.ERequestStatus.NONE}>
                 <Form>

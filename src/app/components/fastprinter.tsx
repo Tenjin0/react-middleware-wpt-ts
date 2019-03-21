@@ -17,7 +17,7 @@ export default class Fastprinter extends React.Component<IFastprinterContainerPr
     }
 
     onClickHandler = (e: React.MouseEvent<HTMLElement>) => {
-        // console.log(e.target.value)
+
         fastprinter.printText(this.state.text)
     }
 
