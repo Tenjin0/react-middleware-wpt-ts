@@ -13,7 +13,7 @@ declare var window: IMyWindow;
 
 const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
 // const ip = 'http://10.75.0.23:9963'
-const ip = 'https://localhost:9963'
+const ip = 'http://localhost:9963'
 const socket = io(ip, {
     "reconnectionAttempts": 4,
 	"rejectUnauthorized": false

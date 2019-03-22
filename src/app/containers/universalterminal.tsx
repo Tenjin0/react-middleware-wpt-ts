@@ -27,6 +27,7 @@ const mapStateToProps = (state: IAppState) => {
         universalTerminalAsk: plugin ? plugin.ask: null
     }
 }
+
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         input: (amount: number) => universalTerminal.input({amount: amount, currency: 978, transactionid: "000000001", operatorid:"02"}),
@@ -34,4 +35,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         clearPluginAskState: () => universalTerminal.dispatchClearPluginAskState()
     };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(UniversalterminalComponent);

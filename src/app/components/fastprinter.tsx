@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { IFastprinterContainerProps } from "../containers/fastprinter"
 import AppFieldSet from "./common/fieldset"
-import { RWMEnum, fastprinter } from '@wynd/redux-wps-middleware';
+import { RWMEnum, fastprinter } from '@wynd/redux-wps-middleware'
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
+
 export interface IFastprinterState {
     text: string
 }
+
 export default class Fastprinter extends React.Component<IFastprinterContainerProps, IFastprinterState> {
 
     constructor(props: any) {
