@@ -4,7 +4,6 @@ import { IUniversalTerminalContainerProps } from '../containers/universaltermina
 import AppFieldSet from "./common/fieldset"
 import { RWMEnum } from '@wynd/redux-wps-middleware';
 
-
 export interface IUniversalTerminalState {
     amount: number
     showAsk: boolean

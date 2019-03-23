@@ -6,7 +6,7 @@ const devMode = process.env.NODE_ENV ? process.env.NODE_ENV === "development" : 
 const config = {
   mode: devMode ?"development" : "production",
   entry: {
-    app: [path.join(__dirname, './src/index.tsx')],
+    app: [path.join(__dirname, './src/main.tsx')],
     vendor: [
       'react', 'react-dom', 'redux', 'react-redux', 'reactstrap', 'socket.io-client', 'redux-thunk'
     ]

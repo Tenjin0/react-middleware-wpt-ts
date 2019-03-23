@@ -1,7 +1,7 @@
-import { applyMiddleware, compose, createStore, Store} from 'redux'
+import { applyMiddleware, compose, createStore, Store } from 'redux'
 import * as io from 'socket.io-client';
 
-import { createWpsMiddleware, universalTerminal, RWMInterface, RWMEnum  } from "@wynd/redux-wps-middleware"
+import { createWpsMiddleware } from "@wynd/redux-wps-middleware"
 
 import reducer from "./reducers"
 interface IMyWindow extends Window {
@@ -15,13 +15,13 @@ const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
 // const ip = 'http://10.75.0.23:9963'
 const ip = 'http://localhost:9963'
 const socket = io(ip, {
-    "reconnectionAttempts": 4,
+	"reconnectionAttempts": 4,
 	"rejectUnauthorized": false
 })
 
 const wpsMiddleware = createWpsMiddleware(socket);
 
-const middleware: any[] = [ wpsMiddleware ]
+const middleware: any[] = [wpsMiddleware]
 
 const enhancers = []
 

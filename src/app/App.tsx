@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'reactstrap';
 import FastprinterContainer from "./containers/fastprinter"
 import UniversalTerminalContainer from "./containers/universalterminal"
 import MSRReaderContainer from "./containers/msrreader"
+import CashKeeperContainer from "./containers/cashkeeper"
 
 class App extends React.Component<{}, {}> {
     render() {
@@ -16,12 +17,18 @@ class App extends React.Component<{}, {}> {
                             <FastprinterContainer />
                         </Col>
                         <Col xs="6">
-                            <UniversalTerminalContainer />
+                            <MSRReaderContainer />
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs="6">
-                            <MSRReaderContainer />
+                        <Col xs="12">
+                            <UniversalTerminalContainer />
+                        </Col>
+                       
+                    </Row>
+                    <Row>
+                        <Col xs="12">    
+                            <CashKeeperContainer />
                         </Col>
                     </Row>
                 </Container>

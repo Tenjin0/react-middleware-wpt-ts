@@ -8,15 +8,15 @@ import { addTodo } from "./app/actions"
 import App from "./app/App"
 import "./app/app.scss";
 
-import {emit, fastprinter, universalTerminal, msrreader, WPTWrapper } from "@wynd/redux-wps-middleware"
+import {emit, fastprinter, universalTerminal, msrreader, WPTController } from "@wynd/redux-wps-middleware"
 
 interface IMyWindow extends Window {
     store: typeof store;
     addTodo: typeof addTodo;
     emit: typeof emit;
-    Fastprinter: WPTWrapper
-    UniversalTerminal: WPTWrapper
-    MsrReader: WPTWrapper
+    Fastprinter: WPTController
+    UniversalTerminal: WPTController
+    MsrReader: WPTController
 }
 
 declare var window: IMyWindow;
