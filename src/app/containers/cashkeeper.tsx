@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 
 import CashkeeperComponent from "../components/cashkeeper"
-import { Dispatch } from 'redux';
 import { IAppState } from '../interface';
-import { RWMInterface, fastprinter, clearWptStateAction, RWMEnum, cashkeeper } from '@wynd/redux-wps-middleware';
+import { RWMInterface, CashKeeper } from '@wynd/redux-wps-middleware';
 
 
 export interface ICashkeeperContainerProps {
@@ -15,11 +14,12 @@ export interface ICashkeeperContainerProps {
 
 const mapStateToProps = (state: IAppState) => {
 
-    const plugin = state.wyndpostools.plugins["cashkeeper"] as RWMInterface.IPluginState
+    const plugin = state.wyndpostools.plugins["cashkeeper"] as CashKeeper.ICashKeeperState
+
     return {
         name: "cashkeeper",
         started: plugin ? plugin.isInitialized : null,
-        cashkeeperRequest: plugin ? plugin.request : null,
+        cashkeeperRequest: plugin ? plugin.transactionRequest : null,
         isTransactionRunning: plugin ? plugin.isTransactionRunning : null
     }
 }
