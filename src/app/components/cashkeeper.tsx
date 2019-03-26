@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { ICashkeeperContainerProps } from "../containers/cashkeeper"
 import AppFieldSet from "./common/fieldset"
-import { RWMEnum, fastprinter } from '@wynd/redux-wps-middleware'
+import { RWMEnum, cashkeeper, CashKeeper } from '@wynd/redux-wps-middleware'
 import { Form, FormGroup, Label, Input, Button } from "reactstrap"
 
 export interface ICashkeeperState {
-    text: string
+    amount: number
 }
 
 export default class Cashkeeper extends React.Component<ICashkeeperContainerProps, ICashkeeperState> {
@@ -14,8 +14,35 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
 
         super(props)
         this.state = {
-            text: "test with middleware"
+            amount: 1000
         }
+    }
+
+    onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+        switch (e.currentTarget.dataset.action) {
+            case 'cancel':
+                cashkeeper.cancelTransaction()
+                break;
+        
+            default:
+                const total: CashKeeper.ITotal = {
+                    value: this.state.amount,
+                    currency: "EUR"
+                }
+                cashkeeper.makeTransaction(total)
+                break;
+        }
+      
+    }
+
+    onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+        const amount = parseFloat(e.target.value)
+        this.setState({
+            ...this.state,
+            amount: amount
+        })
     }
 
     public render() {
@@ -25,9 +52,16 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                 <Form>
                     <FormGroup>
                         <Label for="CashkeeperText">Text</Label>
-                        <Input type="text" name="Cashkeeper_text" id="CashkeeperText" placeholder="text to print" value={this.state.text} />
+                        <Input onChange={this.onChangeAmount} type="number" name="ut_amount" id="utAmount" placeholder="amount to enter" value={this.state.amount} />
                     </FormGroup>
-                    <Button>Submit</Button>
+                    <Button data-action="transaction" onClick={this.onClickHandler} >Make transaction </Button>
+
+                    { this.props.isTransactionRunning &&
+                    <React.Fragment>
+                        <FormGroup>
+                            <Button onClick={this.onClickHandler} data-action="cancel">Cancel transaction </Button>
+                        </FormGroup>
+                    </React.Fragment>}
                 </Form>
             </AppFieldSet>
 

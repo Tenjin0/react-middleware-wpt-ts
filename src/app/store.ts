@@ -4,6 +4,7 @@ import * as io from 'socket.io-client';
 import { createWpsMiddleware } from "@wynd/redux-wps-middleware"
 
 import reducer from "./reducers"
+import { RWMEnum } from '@wynd/redux-wps-middleware/src';
 interface IMyWindow extends Window {
 	process: any;
 	__REDUX_DEVTOOLS_EXTENSION__(): any;
@@ -19,7 +20,7 @@ const socket = io(ip, {
 	"rejectUnauthorized": false
 })
 
-const wpsMiddleware = createWpsMiddleware(socket);
+const wpsMiddleware = createWpsMiddleware(socket, [ RWMEnum.EPluginName.CASHKEEPER ]);
 
 const middleware: any[] = [wpsMiddleware]
 

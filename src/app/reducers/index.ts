@@ -1,9 +1,9 @@
 import { combineReducers, Reducer } from 'redux'
 import todoReducer from './todo'
-import { createWpsReducer} from "@wynd/redux-wps-middleware"
+import { createWpsReducer, RWMEnum } from "@wynd/redux-wps-middleware"
 
 const reducer: Reducer = combineReducers({
-    wyndpostools: createWpsReducer(),
+    wyndpostools: createWpsReducer([ RWMEnum.EPluginName.CASHKEEPER ]),
     todo: todoReducer
 })
 

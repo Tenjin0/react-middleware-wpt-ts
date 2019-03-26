@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import { IUniversalTerminalContainerProps } from '../containers/universalterminal';
 import AppFieldSet from "./common/fieldset"
-import { RWMEnum } from '@wynd/redux-wps-middleware';
+import { RWMEnum, universalTerminal, UniversalTerminal} from '@wynd/redux-wps-middleware';
 
 export interface IUniversalTerminalState {
     amount: number
@@ -10,7 +10,7 @@ export interface IUniversalTerminalState {
     display: string
 }
 
-export default class UniversalTerminal extends React.Component<IUniversalTerminalContainerProps, IUniversalTerminalState> {
+export default class UniversalTerminaComponent extends React.Component<IUniversalTerminalContainerProps, IUniversalTerminalState> {
 
     constructor(props: any) {
         super(props)
@@ -26,14 +26,14 @@ export default class UniversalTerminal extends React.Component<IUniversalTermina
         switch (choice) {
             case "confirm":
                 this.props.keyboardConfirm(true)
-                break;
-                case "abort":
+            break;
+            case "abort":
                 this.props.keyboardConfirm(false)
-                break;
-                default:
-                this.props.input(this.state.amount)
-
-                break;
+            break;
+            default:
+                const total: UniversalTerminal.ITransaction = {amount: this.state.amount, currency: 978, transactionid: "000000001", operatorid:"02"}
+                universalTerminal.input(total);
+            break;
         }
     }
 

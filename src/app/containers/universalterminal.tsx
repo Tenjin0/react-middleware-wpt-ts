@@ -11,7 +11,6 @@ export interface IUniversalTerminalContainerProps {
     universalTerminalRequest: RWMInterface.IPluginStateRequest,
     universalTerminalPush: RWMInterface.IPluginStatePush
     universalTerminalAsk: RWMInterface.IPluginStateAsk
-    input: (amount: number) => void
     keyboardConfirm: (validation: boolean) => void,
     clearPluginAskState: () => void
 }
@@ -30,7 +29,6 @@ const mapStateToProps = (state: IAppState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        input: (amount: number) => universalTerminal.input({amount: amount, currency: 978, transactionid: "000000001", operatorid:"02"}),
         keyboardConfirm: (validation: boolean) => universalTerminal.keyboardConfirm(validation),
         clearPluginAskState: () => universalTerminal.dispatchClearPluginAskState()
     };
