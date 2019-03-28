@@ -19,7 +19,7 @@ const socket = io(ip, {
 	"rejectUnauthorized": false
 })
 
-const wpsMiddleware = createWpsMiddleware(socket, [ RWMEnum.EPluginName.CASHKEEPER ]);
+const wpsMiddleware = createWpsMiddleware(socket, [ RWMEnum.EPluginName.UNIVERSALTERMINAL, RWMEnum.EPluginName.CASHKEEPER ]);
 
 const middleware: any[] = [wpsMiddleware]
 

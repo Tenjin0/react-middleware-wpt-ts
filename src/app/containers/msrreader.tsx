@@ -28,7 +28,7 @@ const mapStateToProps = (state: IAppState) => {
         name: RWMEnum.EPluginName.MSRREADER,
         started: plugin ? plugin.isStarted : null,
         msrreaderRequest:plugin ? plugin.request: null,
-        msrreaderPush: plugin ? plugin.push: null,
+        msrreaderPush: plugin ? plugin.pushes: null,
         msrreaderAsk: plugin ? plugin.ask: null
     }
 }

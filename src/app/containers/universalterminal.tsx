@@ -18,11 +18,12 @@ export interface IUniversalTerminalContainerProps {
 const mapStateToProps = (state: IAppState) => {
 
     const plugin = state.wyndpostools.plugins[RWMEnum.EPluginName.UNIVERSALTERMINAL] as RWMInterface.IPluginState
+
     return {
         name: RWMEnum.EPluginName.UNIVERSALTERMINAL,
         started: plugin ? plugin.isStarted : null,
         universalTerminalRequest:plugin ? plugin.request: null,
-        universalTerminalPush: plugin ? plugin.push: null,
+        universalTerminalPush: plugin ? plugin.pushes: null,
         universalTerminalAsk: plugin ? plugin.ask: null
     }
 }

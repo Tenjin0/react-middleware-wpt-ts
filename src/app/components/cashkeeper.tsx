@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { ICashkeeperContainerProps } from "../containers/cashkeeper"
 import AppFieldSet from "./common/fieldset"
-import { RWMEnum, cashkeeper, CashKeeper } from '@wynd/redux-wps-middleware'
-import { Form, FormGroup, Label, Input, Button } from "reactstrap"
+import { RWMEnum, cashkeeper, CashKeeper, RWMInterface } from '@wynd/redux-wps-middleware'
+import { Form, FormGroup, Label, Input, Button, InputGroup, InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from "reactstrap"
 
 export interface ICashkeeperState {
     amount: number
     manualPayment: number
+    paymentTypes: CashKeeper.IPaymentType[]
+    dropdownOpen: boolean
+    isTransactionRunning: boolean
+    selectedPaymentType: CashKeeper.IPaymentType
 }
 
 export default class Cashkeeper extends React.Component<ICashkeeperContainerProps, ICashkeeperState> {
@@ -16,7 +20,11 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
         super(props)
         this.state = {
             amount: 1000,
-            manualPayment: 0
+            manualPayment: 0,
+            paymentTypes: [],
+            dropdownOpen: false,
+            isTransactionRunning: false,
+            selectedPaymentType: null
         }
     }
 
@@ -35,13 +43,13 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                         value: this.state.manualPayment
                     },
                     type: {
-                        code: "BANK_NOTES",
-                        name: "bank note"
+                        code: this.state.selectedPaymentType.code,
+                        name: this.state.selectedPaymentType.name
                     }
                 }
                 cashkeeper.manualPayment([manualPayment])
                 break;
-        
+
             default:
                 const total: CashKeeper.ITotal = {
                     value: this.state.amount,
@@ -50,16 +58,36 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                 cashkeeper.makeTransaction(total)
                 break;
         }
-      
+
     }
 
-    onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    toggleDropDown = () => {
 
-        const amount = parseFloat(e.target.value)
         this.setState({
             ...this.state,
-            amount: amount
-        })
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
+
+
+    onChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+        
+        const amount = parseInt(e.target.value)
+
+            if (e.target.id === "ut_amountmanualpayment") {
+                return this.setState({
+                    ...this.state,
+                    manualPayment: isNaN(amount) ? null: amount
+                })
+            }
+        
+            if (e.target.id === "ut_amount") {
+                return this.setState({
+                    ...this.state,
+                    amount: isNaN(amount) ? null: amount
+                })
+            }
+       
     }
 
     onChangManualPayment = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,6 +99,53 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
         })
     }
 
+    onSelectPayment = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+        const selectedPayment: CashKeeper.IPaymentType[] = this.props.paymentTypes.filter((paymentType) => {
+
+            return paymentType.code === e.currentTarget.dataset.payment
+        })
+        
+        if (selectedPayment.length > 0) {
+
+            this.setState({
+                ...this.state,
+                selectedPaymentType: selectedPayment[0],
+                dropdownOpen: false
+            })
+        }
+       
+    }
+    getPaymentName = (code: string) => {
+
+        let payment = this.props.paymentTypes.filter((payment) => {
+            return payment.code === code
+        })
+
+        if (payment.length > 0) {
+            return payment[1].name
+        }
+        return ""
+
+    }
+    componentWillReceiveProps(nextProps: ICashkeeperContainerProps) {
+
+        const nextState = {
+            ...this.state
+        }
+        if (nextProps.paymentTypes) {
+            nextState.paymentTypes =  nextProps.paymentTypes
+        }
+        if (nextProps.isTransactionRunning) {
+            nextState.isTransactionRunning = nextProps.isTransactionRunning
+        }
+        if (nextProps.isTransactionRunning === true && this.state.isTransactionRunning === false) {
+            cashkeeper.getPaymentTypes()
+        }
+
+        this.setState(nextState)
+    }
+
     public render() {
 
         return (
@@ -78,14 +153,14 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                 <Form>
                     <FormGroup>
                         <Label for="CashkeeperText">Amount</Label>
-                        <Input onChange={this.onChangeAmount} type="number" name="ut_amount" id="utAmount" placeholder="amount to enter" min={0} value={this.state.amount} />
+                        <Input disabled={this.props.isTransactionRunning} onChange={this.onChangeAmount} type="number" name="ut_amount" id="utAmount" placeholder="amount to enter" min={0} value={this.state.amount} />
                     </FormGroup>
 
-                    { !this.props.isTransactionRunning ?
+                    {!this.props.isTransactionRunning ?
 
                         <FormGroup>
                             <Button data-action="transaction" onClick={this.onClickHandler} >Make transaction </Button>
-                        </FormGroup> 
+                        </FormGroup>
                         :
                         <React.Fragment>
                             <FormGroup>
@@ -93,11 +168,27 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                             </FormGroup>
                             <FormGroup>
                                 <Label for="CashkeeperText">Amount</Label>
-                                <Input onChange={this.onChangeAmount} type="number" name="ut_amount" id="utAmount" placeholder="amount to enter" value={this.state.manualPayment} min={0} max={this.state.amount}/>
+                                <InputGroup>
+                                    <Input onChange={this.onChangeAmount} type="number" name="ut_amountmanualpayment" id="ut_amountmanualpayment" placeholder="amount for manual payment to enter" value={this.state.manualPayment ? this.state.manualPayment : ""} min={0} max={this.state.amount? this.state.amount : null} />
+                                    <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
+                                        <DropdownToggle caret>
+                                            {this.state.selectedPaymentType ? this.state.selectedPaymentType.name : "Select payment type"}
+                                        </DropdownToggle>
+                                        <DropdownMenu persist={false}>
+                                            {
+                                                this.state.paymentTypes.map((payment: CashKeeper.IPaymentType) => (
+                                                    <Button className="dropdown-item"key={"payment_" + payment.code.toLowerCase()} data-payment={payment.code} onClick={this.onSelectPayment}>
+                                                        {payment.name}
+                                                    </Button>
+                                                ))
+                                            }
+                                        </DropdownMenu>
+                                    </InputGroupButtonDropdown>
+                                </InputGroup>
                             </FormGroup>
                             <FormGroup>
-                                <Button data-action="manual_payment" onClick={this.onClickHandler}>Manual payment</Button>
-                            </FormGroup> 
+                                <Button disabled={this.state.selectedPaymentType === null} data-action="manual_payment" onClick={this.onClickHandler}>Manual payment</Button>
+                            </FormGroup>
                         </React.Fragment>
                     }
                 </Form>
