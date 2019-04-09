@@ -12,14 +12,14 @@ interface IMyWindow extends Window {
 declare var window: IMyWindow;
 
 const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
-// const ip = 'http://10.75.0.23:9963'
 const ip = 'http://localhost:9963'
-const socket = io(ip, {
-	"reconnectionAttempts": 4,
-	"rejectUnauthorized": false
-})
+// const ip = 'http://10.80.1.40:9963'
+// const socket = io(ip, {
+// 	"reconnectionAttempts": 4,
+// 	"rejectUnauthorized": false
+// })
 
-const wpsMiddleware = createWpsMiddleware(socket, [ RWMEnum.EPluginName.UNIVERSALTERMINAL, RWMEnum.EPluginName.CASHKEEPER ]);
+const wpsMiddleware = createWpsMiddleware(ip);
 
 const middleware: any[] = [wpsMiddleware]
 

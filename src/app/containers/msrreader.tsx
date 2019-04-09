@@ -5,20 +5,17 @@ import { IAppState } from '../interface';
 import { RWMInterface, RWMEnum } from '@wynd/redux-wps-middleware';
 
 export interface IMSRReaderContainerProps {
+
     name: string
     started: boolean
-    msrreaderRequest: RWMInterface.IPluginStateRequest
     msrreaderPush: RWMInterface.IPluginStatePush
-    msrreaderAsk: RWMInterface.IPluginStateAsk
 }
 
-
 export interface IMSRReaderContainerProps {
+
     name: string
     started: boolean
-    msrreaderRequest: RWMInterface.IPluginStateRequest
     msrreaderPush: RWMInterface.IPluginStatePush
-    msrreaderAsk: RWMInterface.IPluginStateAsk
 }
 
 const mapStateToProps = (state: IAppState) => {
@@ -27,9 +24,7 @@ const mapStateToProps = (state: IAppState) => {
     return {
         name: RWMEnum.EPluginName.MSRREADER,
         started: plugin ? plugin.isStarted : null,
-        msrreaderRequest:plugin ? plugin.request: null,
         msrreaderPush: plugin ? plugin.pushes: null,
-        msrreaderAsk: plugin ? plugin.ask: null
     }
 }
 

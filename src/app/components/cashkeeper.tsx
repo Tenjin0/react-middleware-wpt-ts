@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ICashkeeperContainerProps } from "../containers/cashkeeper"
 import AppFieldSet from "./common/fieldset"
-import { RWMEnum, cashkeeper, CashKeeper, RWMInterface } from '@wynd/redux-wps-middleware'
+import { RWMEnum, cashkeeper, CashKeeper } from '@wynd/redux-wps-middleware'
 import { Form, FormGroup, Label, Input, Button, InputGroup, InputGroupButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from "reactstrap"
 
 export interface ICashkeeperState {
@@ -47,7 +47,7 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                         name: this.state.selectedPaymentType.name
                     }
                 }
-                cashkeeper.manualPayment([manualPayment])
+                cashkeeper.setManualPayment([manualPayment])
                 break;
 
             default:
@@ -74,17 +74,17 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
         
         const amount = parseInt(e.target.value)
 
-            if (e.target.id === "ut_amountmanualpayment") {
+            if (e.target.id === "ut-amountmanualpayment") {
                 return this.setState({
                     ...this.state,
-                    manualPayment: isNaN(amount) ? null: amount
+                    manualPayment: isNaN(amount) ? 0: amount
                 })
             }
-        
-            if (e.target.id === "ut_amount") {
+
+            if (e.target.id === "ut-amount") {
                 return this.setState({
                     ...this.state,
-                    amount: isNaN(amount) ? null: amount
+                    amount: isNaN(amount) ? 0: amount
                 })
             }
        
@@ -153,7 +153,7 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                 <Form>
                     <FormGroup>
                         <Label for="CashkeeperText">Amount</Label>
-                        <Input disabled={this.props.isTransactionRunning} onChange={this.onChangeAmount} type="number" name="ut_amount" id="utAmount" placeholder="amount to enter" min={0} value={this.state.amount} />
+                        <Input disabled={this.props.isTransactionRunning} onChange={this.onChangeAmount} type="number" name="ut-amount" id="ut-amount" placeholder="amount to enter" min={0} value={this.state.amount} />
                     </FormGroup>
 
                     {!this.props.isTransactionRunning ?
@@ -169,7 +169,7 @@ export default class Cashkeeper extends React.Component<ICashkeeperContainerProp
                             <FormGroup>
                                 <Label for="CashkeeperText">Amount</Label>
                                 <InputGroup>
-                                    <Input onChange={this.onChangeAmount} type="number" name="ut_amountmanualpayment" id="ut_amountmanualpayment" placeholder="amount for manual payment to enter" value={this.state.manualPayment ? this.state.manualPayment : ""} min={0} max={this.state.amount? this.state.amount : null} />
+                                    <Input onChange={this.onChangeAmount} type="number" name="ut-amountmanualpayment" id="ut-amountmanualpayment" placeholder="amount for manual payment to enter" value={this.state.manualPayment ? this.state.manualPayment : ""} min={0} max={this.state.amount? this.state.amount : null} />
                                     <InputGroupButtonDropdown addonType="append" isOpen={this.state.dropdownOpen} toggle={this.toggleDropDown}>
                                         <DropdownToggle caret>
                                             {this.state.selectedPaymentType ? this.state.selectedPaymentType.name : "Select payment type"}

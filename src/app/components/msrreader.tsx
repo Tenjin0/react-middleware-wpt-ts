@@ -10,7 +10,7 @@ export default class MSRReader extends React.Component<IMSRReaderContainerProps,
 	public render() {
 		const display = this.props.msrreaderPush && this.props.msrreaderPush.eventAction === "data" ? this.props.msrreaderPush.data : ""
 		return (
-			<AppFieldSet name={this.props.name} started={this.props.started} status={this.props.msrreaderRequest ? this.props.msrreaderRequest.status : RWMEnum.ERequestStatus.NONE}>
+			<AppFieldSet name={this.props.name} started={this.props.started} status={RWMEnum.ERequestStatus.NONE}>
 				<Form>
 					<FormGroup>
 						<Label for="utDisplay">Display</Label>

@@ -2,10 +2,11 @@ import { connect } from 'react-redux';
 
 import CashkeeperComponent from "../components/cashkeeper"
 import { IAppState } from '../interface';
-import { RWMInterface, CashKeeper, RWMEnum } from '@wynd/redux-wps-middleware';
+import { RWMInterface, CashKeeper } from '@wynd/redux-wps-middleware';
 
 
 export interface ICashkeeperContainerProps {
+
     name: string
     started: boolean
     cashkeeperRequest: RWMInterface.IPluginStateRequest

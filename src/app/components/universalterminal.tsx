@@ -22,6 +22,7 @@ export default class UniversalTerminaComponent extends React.Component<IUniversa
     }
 
     onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+
         const choice =  e.currentTarget.dataset && e.currentTarget.dataset.choice
         switch (choice) {
             case "confirm":

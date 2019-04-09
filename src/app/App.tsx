@@ -6,6 +6,8 @@ import FastprinterContainer from "./containers/fastprinter"
 import UniversalTerminalContainer from "./containers/universalterminal"
 import MSRReaderContainer from "./containers/msrreader"
 import CashKeeperContainer from "./containers/cashkeeper"
+import CashDrawerContainer from "./containers/cashdrawer"
+import LineDisplayContainer from "./containers/linedisplay"
 
 class App extends React.Component<{}, {}> {
     render() {
@@ -29,6 +31,14 @@ class App extends React.Component<{}, {}> {
                     <Row>
                         <Col xs="12">    
                             <CashKeeperContainer />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="6">
+                            <CashDrawerContainer />
+                        </Col>
+                        <Col xs="6">
+                            <LineDisplayContainer />
                         </Col>
                     </Row>
                 </Container>
