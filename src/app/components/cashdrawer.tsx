@@ -4,42 +4,30 @@ import AppFieldSet from "./common/fieldset"
 import { ICashDrawerContainerProps } from '../containers/cashdrawer';
 import { RWMEnum, cashdrawer, CashDrawer } from '@wynd/redux-wps-middleware';
 
-interface ICashDrawerComponentProps {
-	canCall: boolean
-}
-
-export default class CashDrawerComponent extends React.Component<ICashDrawerContainerProps, ICashDrawerComponentProps> {
+export default class CashDrawerComponent extends React.Component<ICashDrawerContainerProps, null> {
 
 	constructor(props: ICashDrawerContainerProps) {
 
 		super(props)
 
-		this.state = {
-			canCall : false
-		}
 
-	}
-
-	public componentWillReceiveProps(nextProps : ICashDrawerContainerProps) {
-
-		if (! this.state.canCall && nextProps.initialized) {
-			this.setState({
-				...this.state,
-				canCall: true
-			})
-			cashdrawer.getCashdrawers()
-
-		}
 	}
 
 	public componentDidMount() {
+
+		cashdrawer.on("initialized", () => {
+			console.log("initialized")
+			cashdrawer.getCashdrawers()
+		})
 	}
 
 	public cashdrawers() {
+
 		return this.props.cashdrawers.map((cashdrawer: CashDrawer.ICashDrawer) => (
-			<li id={"cashdrawer-" + cashdrawer.id}> {cashdrawer.status}</li>
+			<li key={"cashdrawer-" + cashdrawer.id} id={"cashdrawer-" + cashdrawer.id}> {cashdrawer.id}: {cashdrawer.status}</li>
 		))
 	}
+
 	public render() {
 
 		return (

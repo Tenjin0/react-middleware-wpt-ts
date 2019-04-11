@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import AppFieldSet from "./common/fieldset"
 import { ILineDisplayContainerProps } from '../containers/linedisplay';
-import { RWMEnum } from '@wynd/redux-wps-middleware';
+import { RWMEnum, linedisplay } from '@wynd/redux-wps-middleware';
 
 export interface ILineDisplayContainerState {
 	line1: string
@@ -42,17 +42,16 @@ export default class LineDisplay extends React.Component<ILineDisplayContainerPr
 	onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
 
 		switch (e.currentTarget.id) {
-			case "linedisplay_line1":
-				this.setState({
-					...this.state,
-					line1: e.currentTarget.value
+
+			case "print":
+				linedisplay.print({
+					line1: this.state.line1,
+					line2: this.state.line2
 				})
 				break;
-			case "linedisplay_line2":
-				this.setState({
-					...this.state,
-					line2: e.currentTarget.value
-				})
+
+			case "clean":
+				linedisplay.clean()
 				break;
 		
 			default:
@@ -69,14 +68,15 @@ export default class LineDisplay extends React.Component<ILineDisplayContainerPr
 						<Label for="linedisplay_line1">Line 1: </Label>
 						<Input type="text" name="linedisplay_line1" onChange={this.onChangeInput} id="linedisplay_line1" placeholder="message for linedisplay" value={this.state.line1}/>
 					</FormGroup>
+
 					<FormGroup>
 						<Label for="linedisplay_line2">Line 2: </Label>
 						<Input type="text" name="linedisplay_line2" onChange={this.onChangeInput}  id="linedisplay_line2" placeholder="message for linedisplay" value={this.state.line2}/>
 					</FormGroup>
 
 					<FormGroup>
-						<Button color="success" data-choice="confirm" onClick={this.onClickHandler}>Confirm</Button>
-						<Button color="danger" data-choice="abort" onClick={this.onClickHandler}>Abort</Button>
+						<Button color="success" data-choice="print" onClick={this.onClickHandler}>Print</Button>
+						<Button color="danger" data-choice="clean" onClick={this.onClickHandler}>Clean</Button>
 					</FormGroup>
 				</Form>
 			</AppFieldSet>
