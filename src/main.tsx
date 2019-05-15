@@ -8,7 +8,7 @@ import { addTodo } from "./app/actions"
 import App from "./app/App"
 import "./app/app.scss";
 
-import {emit, fastprinter, universalTerminal, msrreader, cashkeeper, cashdrawer,  WPTController, linedisplay } from "@wynd/redux-wps-middleware"
+import {emit, fastprinter, universalTerminal, msrreader, cashkeeper, cashdrawer, balance,  WPTController, linedisplay } from "@wynd/redux-wps-middleware"
 
 interface IMyWindow extends Window {
     store: typeof store;
@@ -20,6 +20,7 @@ interface IMyWindow extends Window {
     Cashkeeper: WPTController
     CashDrawer: WPTController
     LineDisplay: WPTController
+    Balance: WPTController
 }
 
 declare var window: IMyWindow;
@@ -34,6 +35,7 @@ window.MsrReader = msrreader
 window.Cashkeeper = cashkeeper
 window.CashDrawer = cashdrawer
 window.LineDisplay = linedisplay
+window.Balance = balance
 
 render(
     <Provider store={store}>
