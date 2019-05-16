@@ -15,9 +15,12 @@ export default class CashDrawerComponent extends React.Component<ICashDrawerCont
 
 	public componentDidMount() {
 
-		cashdrawer.on("initialized", () => {
-			console.log("initialized")
+		cashdrawer.on("started", () => {
+			console.log("started")
 			cashdrawer.getCashdrawers()
+		})
+		cashdrawer.on("opened", () => {
+			console.log("opened");
 		})
 	}
 
