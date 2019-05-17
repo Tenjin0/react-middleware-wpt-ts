@@ -6,7 +6,7 @@ import FastprinterContainer from "./containers/fastprinter"
 import UniversalTerminalContainer from "./containers/universalterminal"
 import MSRReaderContainer from "./containers/msrreader"
 import CashKeeperContainer from "./containers/cashkeeper"
-import CashDrawerContainer from "./containers/cashdrawer"
+import SystemContainer from "./containers/system"
 import LineDisplayContainer from "./containers/linedisplay"
 
 class App extends React.Component<{}, {}> {
@@ -28,17 +28,18 @@ class App extends React.Component<{}, {}> {
                         </Col>
                        
                     </Row>
-                    <Row>
-                        <Col xs="12">    
-                            <CashKeeperContainer />
-                        </Col>
-                    </Row>
+                   
                     <Row>
                         <Col xs="6">
-                            <CashDrawerContainer />
+                            <SystemContainer />
                         </Col>
                         <Col xs="6">
                             <LineDisplayContainer />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="12">    
+                            <CashKeeperContainer />
                         </Col>
                     </Row>
                 </Container>

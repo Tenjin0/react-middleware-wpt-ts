@@ -63,7 +63,7 @@ export default class LineDisplay extends React.Component<ILineDisplayContainerPr
 
 		return (
 			<AppFieldSet name={this.props.name} started={this.props.started} status={RWMEnum.ERequestStatus.NONE}>
-				<Form>
+				<Form className="d-flex flex-column">
 					<FormGroup>
 						<Label for="linedisplay_line1">Line 1: </Label>
 						<Input type="text" name="linedisplay_line1" onChange={this.onChangeInput} id="linedisplay_line1" placeholder="message for linedisplay" value={this.state.line1}/>
@@ -74,7 +74,7 @@ export default class LineDisplay extends React.Component<ILineDisplayContainerPr
 						<Input type="text" name="linedisplay_line2" onChange={this.onChangeInput}  id="linedisplay_line2" placeholder="message for linedisplay" value={this.state.line2}/>
 					</FormGroup>
 
-					<FormGroup>
+					<FormGroup className="d-flex justify-content-end">
 						<Button color="success" data-choice="print" onClick={this.onClickHandler}>Print</Button>
 						<Button color="danger" data-choice="clean" onClick={this.onClickHandler}>Clean</Button>
 					</FormGroup>

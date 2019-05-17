@@ -4,7 +4,7 @@ import { createWpsReducer, RWMEnum, RWMInterface, fastprinter, FastPrinter } fro
 import Fastprinter from '../components/fastprinter';
 
 const reducer: Reducer = combineReducers({
-    wyndpostools: createWpsReducer([ RWMEnum.EPluginName.FASTPRINTER, RWMEnum.EPluginName.CASHDRAWER]),
+    wyndpostools: createWpsReducer([ RWMEnum.EPluginName.SYSTEM ]),
     todo: todoReducer
 })
 

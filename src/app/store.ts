@@ -12,8 +12,8 @@ interface IMyWindow extends Window {
 declare var window: IMyWindow;
 
 const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__
-// const ip = 'http://localhost:9963'
-const ip = 'http://10.80.0.87:9963'
+const ip = 'https://localhost:9963'
+// const ip = 'http://10.80.0.87:9963'
 // const socket = io(ip, {
 // 	"reconnectionAttempts": 4,
 // 	"rejectUnauthorized": false
