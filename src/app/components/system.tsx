@@ -19,7 +19,7 @@ export default class SystemComponent extends React.Component<ISystemContainerPro
 
 		setTimeout(() => {
 			if(!system.isConnectedToWPT()) {
-				system.dispatchFakePushAction("wyndserial", "FAKE00075be4e" + Math.floor(Math.random() * 10))
+				system.dispatchFakePushAction("wyndserial",[ "FAKE00075be4e" + Math.floor(Math.random() * 10) ])
 			}
 		}, 0)
 
