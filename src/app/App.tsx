@@ -8,6 +8,7 @@ import MSRReaderContainer from "./containers/msrreader"
 import CashKeeperContainer from "./containers/cashkeeper"
 import SystemContainer from "./containers/system"
 import LineDisplayContainer from "./containers/linedisplay"
+import RfidUposContainer from "./containers/rfidupos"
 
 class App extends React.Component<{}, {}> {
     render() {
@@ -40,6 +41,11 @@ class App extends React.Component<{}, {}> {
                     <Row>
                         <Col xs="12">    
                             <CashKeeperContainer />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs="12">    
+                            <RfidUposContainer />
                         </Col>
                     </Row>
                 </Container>
