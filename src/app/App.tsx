@@ -1,6 +1,7 @@
 
 import * as React from 'react';
 import { Container, Row, Col } from 'reactstrap';
+import { Tabs, Tab } from 'react-bootstrap';
 
 import FastprinterContainer from "./containers/fastprinter"
 import UniversalTerminalContainer from "./containers/universalterminal"
@@ -15,39 +16,27 @@ class App extends React.Component<{}, {}> {
         return (
             <div className="todoapp">
                 <Container>
-                    <Row>
-                        <Col xs="6">
+                    <br/>
+                    <Tabs defaultActiveKey="rfidupos" id="plugins-tabs">
+                        <Tab eventKey="fastprinter" title="Fastprinter">
                             <FastprinterContainer />
-                        </Col>
-                        <Col xs="6">
+                        </Tab>
+                        <Tab eventKey="mssreader" title="MSRReader">
                             <MSRReaderContainer />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="12">
+                        </Tab>
+                        <Tab eventKey="universalterminal" title="UniversalTerminal">
                             <UniversalTerminalContainer />
-                        </Col>
-                       
-                    </Row>
-                   
-                    <Row>
-                        <Col xs="6">
-                            <SystemContainer />
-                        </Col>
-                        <Col xs="6">
+                        </Tab>
+                        <Tab eventKey="linedisplay" title="LineDisplay">
                             <LineDisplayContainer />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="12">    
+                        </Tab>
+                        <Tab eventKey="cashkeeper" title="CashKeeper">
                             <CashKeeperContainer />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="12">    
+                        </Tab>
+                        <Tab eventKey="rfidupos" title="RfidUpos">
                             <RfidUposContainer />
-                        </Col>
-                    </Row>
+                        </Tab>
+                    </Tabs>
                 </Container>
             </div>
         )

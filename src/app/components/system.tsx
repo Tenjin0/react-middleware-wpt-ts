@@ -6,7 +6,6 @@ import { RWMInterface, RWMEnum, system, System } from '@wynd/redux-wps-middlewar
 
 export default class SystemComponent extends React.Component<ISystemContainerProps, any> {
 
-
 	componentDidMount() {
 
 		system.on("version", (version) => {
