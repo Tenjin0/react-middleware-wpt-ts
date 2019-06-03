@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Form, Row, Col, Button, Card } from "react-bootstrap";
-import { RWMEnum, RfidUpos } from "@wynd/redux-wps-middleware";
-import rfidUpos from '@wynd/redux-wps-middleware/dist/controllers/rfidupos';
+import { RWMEnum, RfidUpos, rfidUpos } from "@wynd/redux-wps-middleware";
 
 export interface IRfidUposOpenProps {
     open: RfidUpos.IOpen
@@ -35,9 +34,9 @@ export default class RfidUposOpen extends React.Component<IRfidUposOpenProps, IR
         this.setState(this.state);
     }
 
-    onSubmitOpen (e: React.FormEvent) {
+    onSubmitOpen = (e: React.FormEvent) => {
         e.preventDefault();
-        rfidUpos.open()
+        rfidUpos.open(this.state.open)
     }
 
     public render() {

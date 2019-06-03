@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RfidUpos, rfidupos } from "@wynd/redux-wps-middleware"
+import { RfidUpos, rfidUpos } from "@wynd/redux-wps-middleware"
 import { Form, Row, Col, Button, Card } from "react-bootstrap";
 
 export interface IRidUposTransactionProps {
@@ -30,7 +30,7 @@ export default class RidUposTransaction extends React.Component<IRidUposTransact
         this.setState(this.state);
 	}
 
-    onSubmit (e: React.FormEvent) {
+    onSubmit = (e: React.FormEvent) => {
 
 		e.preventDefault();
 		const target = e.currentTarget as HTMLButtonElement;
@@ -41,19 +41,19 @@ export default class RidUposTransaction extends React.Component<IRidUposTransact
 					id: this.state.id,
 					type: this.state.type
 				}
-				rfidupos.startTransaction(transaction)
+				rfidUpos.startTransaction(transaction)
 				break;
 			case "pause":
-				rfidupos.pauseTransaction()
+				rfidUpos.pauseTransaction()
 				break;
 			case "confirm":
-				rfidupos.confirmTransaction()
+				rfidUpos.confirmTransaction()
 				break;
 			case "cancel":
-				rfidupos.cancelTransaction()
+				rfidUpos.cancelTransaction()
 				break;
 			case "clear":
-				rfidupos.clearTransaction()
+				rfidUpos.clearTransaction()
 				break;
 			default:
 				break;
