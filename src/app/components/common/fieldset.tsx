@@ -19,9 +19,9 @@ interface IStatusRequestProps {
 
 const StatusPlugin: React.SFC<IStatusProps> = (props) => {
     if (props.started) {
-        return (<Badge color="success">Start</Badge>)
+        return (<Badge color="success">Ready</Badge>)
     } else {
-        return (<Badge color="danger">Start</Badge>)
+        return (<Badge color="danger">Not ready</Badge>)
     }
 
 }
@@ -39,7 +39,7 @@ const StatusRequest: React.SFC<IStatusRequestProps> = ({ status }) => {
         case RWMEnum.ERequestStatus.COMPLETED:
             return (<Badge color="primary">{status}</Badge>)
         default:
-            return (<Badge color="secondary">{status}</Badge>)
+            return (<Badge color="primary">{status}</Badge>)
     }
 
 }

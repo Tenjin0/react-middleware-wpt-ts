@@ -4,6 +4,7 @@ import { Form, Row, Col, Button, Card } from "react-bootstrap";
 
 export interface IRidUposTransactionProps {
 	status: RfidUpos.TStatus
+	opened: boolean
 }
 
 export interface IRidUposTransactionState {
@@ -23,6 +24,7 @@ export default class RidUposTransaction extends React.Component<IRidUposTransact
 	}
 
 	onInputChange = (e: React.FormEvent) => {
+
         const target = e.currentTarget as HTMLInputElement;
 		const field = target.dataset.field;
         const value = target.value;
@@ -33,9 +35,10 @@ export default class RidUposTransaction extends React.Component<IRidUposTransact
     onSubmit = (e: React.FormEvent) => {
 
 		e.preventDefault();
-		const target = e.currentTarget as HTMLButtonElement;
 
-		switch (target.dataset.action) {
+        const button = document.activeElement as HTMLButtonElement ;
+
+		switch (button.dataset.action) {
 			case "start":
 				const transaction : RfidUpos.IPartialTransaction = {
 					id: this.state.id,
@@ -94,28 +97,28 @@ export default class RidUposTransaction extends React.Component<IRidUposTransact
 					<div className="d-flex justify-content-end">
 						{
 							RfidUpos.EStatus.STARTED !== this.props.status &&
-							<Button variant="primary" type="submit" data-action="start" style={{marginLeft: "15px"}}>
+							<Button variant="primary" disabled={!this.props.opened} type="submit" data-action="start" style={{marginLeft: "15px"}}>
 								Start
 							</Button>
 						}
 						{
 							RfidUpos.EStatus.STARTED === this.props.status &&
-							<Button variant="primary" type="submit" data-action="pause" style={{marginLeft: "15px"}}>
+							<Button variant="primary" disabled={!this.props.opened} type="submit" data-action="pause" style={{marginLeft: "15px"}}>
 								Pause
 							</Button>
 						}
 						{
 							[RfidUpos.EStatus.STARTED].includes(this.props.status as RfidUpos.EStatus) &&
-							<Button variant="primary" type="submit" data-action="cancel" style={{marginLeft: "15px"}}>
+							<Button variant="primary" disabled={!this.props.opened} type="submit" data-action="cancel" style={{marginLeft: "15px"}}>
 								Cancel
 							</Button> &&
-							<Button variant="primary" type="submit" data-action="confirm" style={{marginLeft: "15px"}}>
+							<Button variant="primary" disabled={!this.props.opened} type="submit" data-action="confirm" style={{marginLeft: "15px"}}>
 								Confirm
 							</Button>
 						}
 						{
 							[RfidUpos.EStatus.CONFIRMED, RfidUpos.EStatus.CANCELLED].includes(this.props.status as RfidUpos.EStatus) &&
-							<Button variant="primary" type="submit" data-action="clear" style={{marginLeft: "15px"}}>
+							<Button variant="primary" disabled={!this.props.opened} type="submit" data-action="clear" style={{marginLeft: "15px"}}>
 								Clear
 							</Button>
 						}

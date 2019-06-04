@@ -20,6 +20,18 @@ export default class RfidUposComponent extends React.Component<IRfidUposProps, I
   }
 
   componentDidMount() {
+    rfidUpos.on("started", (data) => {
+      console.log("started", data);
+    })
+    rfidUpos.on("initialized", () => {
+      console.log("initialized")
+    })
+    rfidUpos.on("open", (data) => {
+      console.log("open", data);
+    })
+    rfidUpos.on("close", () => {
+      console.log("close")
+    })
     // console.log(this.props)
   }
 
@@ -32,7 +44,7 @@ export default class RfidUposComponent extends React.Component<IRfidUposProps, I
             <RfidUposOpen opened={this.props.opened} open={this.props.open}/>
           </Col>
           <Col sm={12} md={6}>
-            <RfidUposTransaction status={this.props.transaction.status}/>
+            <RfidUposTransaction status={this.props.transaction.status} opened={this.props.opened}/>
           </Col>
         </Row>
         <Row>

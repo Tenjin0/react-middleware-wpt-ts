@@ -27,6 +27,7 @@ export default class RfidUposOpen extends React.Component<IRfidUposOpenProps, IR
     }
 
     onInputChange = (e: React.FormEvent) => {
+
         const target = e.currentTarget as HTMLInputElement;
         const field = target.dataset.field;
         const value = target.type === "checkbox"? target.checked : target.value;
@@ -34,9 +35,23 @@ export default class RfidUposOpen extends React.Component<IRfidUposOpenProps, IR
         this.setState(this.state);
     }
 
-    onSubmitOpen = (e: React.FormEvent) => {
+    onSubmit = (e: React.FormEvent) => {
+
         e.preventDefault();
-        rfidUpos.open(this.state.open)
+        const button = document.activeElement as HTMLButtonElement ;
+
+		switch (button.dataset.action) {
+
+			case "open":
+                rfidUpos.open(this.state.open)
+                break;
+            case "close":
+                rfidUpos.close();
+                break;
+            default:
+                break;
+
+        }
     }
 
     public render() {
@@ -49,13 +64,13 @@ export default class RfidUposOpen extends React.Component<IRfidUposOpenProps, IR
                     <Card.Title>Open</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                    <Form id="rfidupos-open" onSubmit={this.onSubmitOpen}>
+                    <Form id="rfidupos-open" onSubmit={this.onSubmit}>
                         <Form.Group as={Row} controlId="rdifuposStore">
                             <Form.Label column sm={nameSize}>
                                 Store
                             </Form.Label>
                             <Col sm={controlSize}>
-                                <Form.Control type="text" placeholder="Store: 12345" data-field="store" value={this.state.open.store} onChange={this.onInputChange}/>
+                                <Form.Control disabled={this.props.opened} type="text" placeholder="Store: 12345" data-field="store" value={this.state.open.store} onChange={this.onInputChange}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="rdifuposTill">
@@ -63,7 +78,7 @@ export default class RfidUposOpen extends React.Component<IRfidUposOpenProps, IR
                                 Till
                             </Form.Label>
                             <Col sm={controlSize}>
-                                <Form.Control type="text" placeholder="Till: 12345" data-field="till" value={this.state.open.till} onChange={this.onInputChange}/>
+                                <Form.Control disabled={this.props.opened} type="text" placeholder="Till: 12345" data-field="till" value={this.state.open.till} onChange={this.onInputChange}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} controlId="rdifuposAcquisition">
@@ -71,7 +86,7 @@ export default class RfidUposOpen extends React.Component<IRfidUposOpenProps, IR
                                 Acquisition
                             </Form.Label>
                             <Col sm={controlSize} style={{ paddingTop: "8px"}}>
-                                <Form.Check type="checkbox" data-field="acquisition" checked={this.state.open.acquisition} onChange={this.onInputChange}/>
+                                <Form.Check disabled={this.props.opened} type="checkbox" data-field="acquisition" checked={this.state.open.acquisition} onChange={this.onInputChange}/>
                             </Col>
                         </Form.Group>
                         <Form.Group  as={Row} controlId="rdifuposAutodisable">
@@ -79,12 +94,22 @@ export default class RfidUposOpen extends React.Component<IRfidUposOpenProps, IR
                                 Autodisable
                             </Form.Label>
                             <Col sm={controlSize} style={{ paddingTop: "8px"}}>
-                                <Form.Check type="checkbox"data-field="autodisable" checked={this.state.open.autodisable} onChange={this.onInputChange}/>
+                                <Form.Check disabled={this.props.opened} type="checkbox"data-field="autodisable" checked={this.state.open.autodisable} onChange={this.onInputChange}/>
                             </Col>
                         </Form.Group>
-                        <Button variant="primary" type="submit" style={{ "float": "right" }}>
-                            Submit
-                        </Button>
+                        <div className="d-flex justify-content-end">
+                            {
+                                this.props.opened && <Button variant="primary" data-action="close" type="submit" style={{ "float": "right" }}>
+                                    Close
+                                </Button>
+                            }
+                            {
+                                !this.props.opened && <Button variant="primary" data-action="open" type="submit" style={{ "float": "right" }}>
+                                    Open
+                                </Button>
+                            }
+                            
+                        </div>
                     </Form>
                 </Card.Body>
             </Card>

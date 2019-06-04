@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { RfidUpos } from '@wynd/redux-wps-middleware';
-import { Card } from 'react-bootstrap';
+import { RfidUpos, rfidUpos } from '@wynd/redux-wps-middleware';
+import { Card, Button } from 'react-bootstrap';
 import { Table } from 'react-bootstrap';
 
 export interface IRfidUposTagsProps {
@@ -8,6 +8,19 @@ export interface IRfidUposTagsProps {
 }
 
 export default class RfidUposTags extends React.Component<IRfidUposTagsProps, any> {
+
+  public setActionButton = (index) => {
+    return (
+      <Button type="button" data-index={index} onClick={this.onClick}>X</Button>
+    )
+  }
+
+  onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+
+    const target = e.currentTarget;
+    rfidUpos.cancelItem(Number(target.dataset.index));
+  }
+
   public render() {
     return (
       <Card>
@@ -27,14 +40,14 @@ export default class RfidUposTags extends React.Component<IRfidUposTagsProps, an
             </thead>
             <tbody>
               {
-                this.props.tags.map((tag: RfidUpos.ITag) => {
+                this.props.tags.map((tag: RfidUpos.ITag, index) => {
                   return (
-                    <tr>
+                    <tr key={"rfidupos-tags-" + index}>
                       <td>{tag.gtin}</td>
                       <td>{tag.sgtin}</td>
                       <td>{tag.epc}</td>
                       <td>{tag.serialNumber}</td>
-                      <td>action</td>
+                      <td>{this.setActionButton(index)}</td>
                     </tr>
                   )
                 })
