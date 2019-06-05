@@ -6,7 +6,6 @@ interface IFieldsetProps {
     name: string,
     started: boolean,
     status: RWMEnum.ERequestStatus
-
 }
 
 interface IStatusProps {

@@ -1,8 +1,11 @@
 import * as React from 'react';
+import { Button, Table } from 'react-bootstrap';
 import { RfidUpos, rfidUpos } from '@wynd/redux-wps-middleware';
-import { Card, Button } from 'react-bootstrap';
-import { Table } from 'react-bootstrap';
 
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import CardApp from "../common/card";
 export interface IRfidUposTagsProps {
   tags : RfidUpos.ITag[]
 }
@@ -11,7 +14,7 @@ export default class RfidUposTags extends React.Component<IRfidUposTagsProps, an
 
   public setActionButton = (index) => {
     return (
-      <Button type="button" data-index={index} onClick={this.onClick}>X</Button>
+      <Button type="button" data-index={index} onClick={this.onClick}><FontAwesomeIcon icon={faHome} /></Button>
     )
   }
 
@@ -23,39 +26,34 @@ export default class RfidUposTags extends React.Component<IRfidUposTagsProps, an
 
   public render() {
     return (
-      <Card>
-        <Card.Header>
-            <Card.Title>Open</Card.Title>
-        </Card.Header>
-        <Card.Body>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>gtin</th>
-                <th>sgtin</th>
-                <th>epc</th>
-                <th>serial number</th>
-                <th>action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                this.props.tags.map((tag: RfidUpos.ITag, index) => {
-                  return (
-                    <tr key={"rfidupos-tags-" + index}>
-                      <td>{tag.gtin}</td>
-                      <td>{tag.sgtin}</td>
-                      <td>{tag.epc}</td>
-                      <td>{tag.serialNumber}</td>
-                      <td>{this.setActionButton(index)}</td>
-                    </tr>
-                  )
-                })
-              }
-            </tbody>
-          </Table>
-        </Card.Body>
-      </Card>
+      <CardApp name="tags">
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>gtin</th>
+              <th>sgtin</th>
+              <th>epc</th>
+              <th>serial number</th>
+              <th>action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.props.tags.map((tag: RfidUpos.ITag, index) => {
+                return (
+                  <tr key={"rfidupos-tags-" + index}>
+                    <td>{tag.gtin}</td>
+                    <td>{tag.sgtin}</td>
+                    <td>{tag.epc}</td>
+                    <td>{tag.serialNumber}</td>
+                    <td>{this.setActionButton(index)}</td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </Table>
+      </CardApp>
     );
   }
 }
