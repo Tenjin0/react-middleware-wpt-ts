@@ -8,7 +8,7 @@ const config = {
   entry: {
     app: [path.join(__dirname, './src/main.tsx')],
     vendor: [
-      'react', 'react-dom', 'redux', 'react-redux', 'reactstrap', 'socket.io-client', 'redux-thunk'
+      'react', 'react-dom', 'redux', 'react-redux', 'react-bootstrap', 'reactstrap', 'socket.io-client', 'redux-thunk', '@fortawesome/fontawesome-svg-core'
     ]
   },
   output: {

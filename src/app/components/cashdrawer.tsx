@@ -9,8 +9,6 @@ export default class CashDrawerComponent extends React.Component<ICashDrawerCont
 	constructor(props: ICashDrawerContainerProps) {
 
 		super(props)
-
-
 	}
 
 	public componentDidMount() {
