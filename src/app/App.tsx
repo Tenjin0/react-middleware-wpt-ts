@@ -4,38 +4,44 @@ import { Container, Row, Col } from 'reactstrap';
 import { Tabs, Tab } from 'react-bootstrap';
 
 import FastprinterContainer from "./containers/fastprinter"
+import PrinterContainer from "./containers/printer"
 import UniversalTerminalContainer from "./containers/universalterminal"
 import MSRReaderContainer from "./containers/msrreader"
 import CashKeeperContainer from "./containers/cashkeeper"
 import SystemContainer from "./containers/system"
 import LineDisplayContainer from "./containers/linedisplay"
 import RfidUposContainer from "./containers/rfidupos"
-
+import { getInitialState, RWMEnum } from "@wynd/redux-wps-middleware"
 class App extends React.Component<{}, {}> {
     render() {
+        const { plugins } = getInitialState();
+
         return (
             <div className="todoapp">
                 <Container>
                     <br/>
-                    <Tabs defaultActiveKey="rfidupos" id="plugins-tabs">
-                        <Tab eventKey="fastprinter" title="Fastprinter">
+                    <Tabs defaultActiveKey="printer" id="plugins-tabs">
+                        { plugins[RWMEnum.EPluginName.FASTPRINTER] && <Tab eventKey="fastprinter" title="Fastprinter">
                             <FastprinterContainer />
-                        </Tab>
-                        <Tab eventKey="mssreader" title="MSRReader">
+                        </Tab>}
+                        { plugins[RWMEnum.EPluginName.PRINTER] && <Tab eventKey="printer" title="Printer">
+                            <PrinterContainer />
+                        </Tab>}
+                        { plugins[RWMEnum.EPluginName.MSRREADER] && <Tab eventKey="mssreader" title="MSRReader">
                             <MSRReaderContainer />
-                        </Tab>
-                        <Tab eventKey="universalterminal" title="UniversalTerminal">
+                        </Tab>}
+                        { plugins[RWMEnum.EPluginName.UNIVERSALTERMINAL] && <Tab eventKey="universalterminal" title="UniversalTerminal">
                             <UniversalTerminalContainer />
-                        </Tab>
-                        <Tab eventKey="linedisplay" title="LineDisplay">
+                        </Tab>}
+                        { plugins[RWMEnum.EPluginName.LINEDISPLAY] && <Tab eventKey="linedisplay" title="LineDisplay">
                             <LineDisplayContainer />
-                        </Tab>
-                        <Tab eventKey="cashkeeper" title="CashKeeper">
+                        </Tab>}
+                        { plugins[RWMEnum.EPluginName.CASHKEEPER] && <Tab eventKey="cashkeeper" title="CashKeeper">
                             <CashKeeperContainer />
-                        </Tab>
-                        <Tab eventKey="rfidupos" title="RfidUpos">
+                        </Tab>}
+                        { plugins[RWMEnum.EPluginName.RFIDUPOS] && <Tab eventKey="rfidupos" title="RfidUpos">
                             <RfidUposContainer />
-                        </Tab>
+                        </Tab>}
                     </Tabs>
                 </Container>
             </div>
