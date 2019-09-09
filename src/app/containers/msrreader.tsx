@@ -20,7 +20,8 @@ export interface IMSRReaderContainerProps {
 
 const mapStateToProps = (state: any) => {
 
-    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.MSRREADER]) as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
+    const plugin = state.getIn(["wyndpostools", "plugins", RWMEnum.EPluginName.MSRREADER]) as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
+
     return {
         name: RWMEnum.EPluginName.MSRREADER,
         started: plugin ? plugin.get("isStarted") : null,

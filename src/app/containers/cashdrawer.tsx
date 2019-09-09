@@ -14,7 +14,8 @@ export interface ICashDrawerContainerProps {
 }
 
 const mapStateToProps = (state: any) => {
-    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.CASHDRAWER]) as any
+    
+    const plugin = state.getIn(["wyndpostools", "plugins", RWMEnum.EPluginName.CASHDRAWER]) as any
 
     return {
         name: RWMEnum.EPluginName.CASHDRAWER,

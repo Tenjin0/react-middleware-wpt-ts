@@ -17,7 +17,7 @@ export interface IUniversalTerminalContainerProps {
 
 const mapStateToProps = (state: any) => {
 
-    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.UNIVERSALTERMINAL]) as any
+    const plugin = state.getIn(["wyndpostools", "plugins", RWMEnum.EPluginName.UNIVERSALTERMINAL]) as any
 
     return {
         name: RWMEnum.EPluginName.UNIVERSALTERMINAL,

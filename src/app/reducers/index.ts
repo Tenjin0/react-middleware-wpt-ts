@@ -1,4 +1,5 @@
-import { combineReducers, Reducer } from 'redux'
+import { Reducer } from 'redux'
+import { combineReducers } from 'redux-immutable'
 import todoReducer from './todo'
 import { createWpsReducer, RWMEnum, RWMInterface, fastprinter, FastPrinter } from "@wynd/redux-wps-middleware"
 import Fastprinter from '../components/fastprinter';

@@ -14,7 +14,7 @@ export interface ISystemContainerProps {
 
 const mapStateToProps = (state: any) : ISystemContainerProps => {
 
-    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.SYSTEM]) as any
+    const plugin = state.getIn(["wyndpostools", "plugins", RWMEnum.EPluginName.SYSTEM]) as any
 
     return {
         name: RWMEnum.EPluginName.SYSTEM,

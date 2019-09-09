@@ -15,7 +15,7 @@ export interface IFastprinterContainerProps {
 }
 
 const mapStateToProps = (state: any) => {
-    const plugin = state.wyndpostools.getIn(["plugins", "fastprinter"]) as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
+    const plugin = state.getIn(["wyndpostools", "plugins", "fastprinter"]) as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
     return {
         name: "fastprinter",
         started: plugin ? plugin.get("isStarted") : null,

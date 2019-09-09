@@ -12,7 +12,8 @@ export interface ILineDisplayContainerProps {
 }
 
 const mapStateToProps = (state: any) => {
-    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.LINEDISPLAY])  as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
+
+    const plugin = state.getIn(["wyndpostools", "plugins", RWMEnum.EPluginName.LINEDISPLAY]) as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
 
     return {
         name: RWMEnum.EPluginName.LINEDISPLAY,

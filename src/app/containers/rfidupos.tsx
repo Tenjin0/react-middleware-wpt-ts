@@ -15,7 +15,7 @@ export interface IRfidUposProps {
 
 const mapStateToProps = (state: any) => {
 
-	const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.RFIDUPOS]) as any
+	const plugin = state.getIn(["wyndpostools", "plugins", RWMEnum.EPluginName.RFIDUPOS]) as any
 	
 	return {
 		name: RWMEnum.EPluginName.RFIDUPOS,
