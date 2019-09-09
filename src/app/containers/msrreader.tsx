@@ -18,13 +18,13 @@ export interface IMSRReaderContainerProps {
     msrreaderPush: RWMInterface.IPluginStatePush
 }
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: any) => {
 
-    const plugin = state.wyndpostools.plugins[RWMEnum.EPluginName.MSRREADER] as RWMInterface.IPluginState 
+    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.MSRREADER]) as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
     return {
         name: RWMEnum.EPluginName.MSRREADER,
-        started: plugin ? plugin.isStarted : null,
-        msrreaderPush: plugin ? plugin.pushes: null,
+        started: plugin ? plugin.get("isStarted") : null,
+        msrreaderPush: plugin ? plugin.get("pushes"): null,
     }
 }
 

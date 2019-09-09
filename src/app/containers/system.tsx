@@ -12,15 +12,16 @@ export interface ISystemContainerProps {
     request: RWMInterface.IPluginStateRequest
 }
 
-const mapStateToProps = (state: IAppState) : ISystemContainerProps => {
+const mapStateToProps = (state: any) : ISystemContainerProps => {
 
-    const plugin = state.wyndpostools.plugins[RWMEnum.EPluginName.SYSTEM] as  System.IPluginState
+    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.SYSTEM]) as any
+
     return {
         name: RWMEnum.EPluginName.SYSTEM,
-        started: plugin ? plugin.isStarted : null,
-        request:plugin ? plugin.request: null,
-        version: plugin && plugin.pushes && plugin.pushes.version ? plugin.pushes.version : "",
-        wyndserial: plugin && plugin.pushes && plugin.pushes.wyndserial ? plugin.pushes.wyndserial : ""
+        started: plugin ? plugin.get("isStarted") : null,
+        request:plugin ? plugin.get("request"): null,
+        version: plugin.getIn(["pushes", "version"]) ? plugin.getIn(["pushes", "version"]) : "",
+        wyndserial: plugin.getIn(["pushes", "wyndserial"]) ? plugin.getIn(["pushes", "wyndserial"]) : ""
     }
 }
 

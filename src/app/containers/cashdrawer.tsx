@@ -13,15 +13,15 @@ export interface ICashDrawerContainerProps {
     cashdrawers: CashDrawer.ICashDrawer[]
 }
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: any) => {
+    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.CASHDRAWER]) as any
 
-    const plugin = state.wyndpostools.plugins[RWMEnum.EPluginName.CASHDRAWER] as RWMInterface.IPluginState 
     return {
         name: RWMEnum.EPluginName.CASHDRAWER,
-        initialized: plugin ? plugin.isInitialized : false,
-        cashdrawerRequest:plugin ? plugin.request: null,
-        cashdrawerPush: plugin ? plugin.pushes: null,
-        cashdrawers: plugin &&  plugin.responses && plugin.responses.cashdrawers ? plugin.responses.cashdrawers : []
+        initialized: plugin ? plugin.get("isInitialized") : false,
+        cashdrawerRequest:plugin ? plugin.get("request"): null,
+        cashdrawerPush: plugin ? plugin.get("pushes"): null,
+        cashdrawers: plugin && plugin.getIn(["responses", "cashdrawers"]) ? plugin.getIn(["responses", "cashdrawers"]) : []
     }
 }
 

@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
@@ -45,7 +44,7 @@ window.CashDrawer = cashdrawer
 window.LineDisplay = linedisplay
 window.Logs = logs
 window.System = system
-window.RfidUpos = rfidUpos
+// window.RfidUpos = rfidUpos
 
 render(
     <Provider store={store}>

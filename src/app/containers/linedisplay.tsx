@@ -11,14 +11,13 @@ export interface ILineDisplayContainerProps {
     lineDisplayRequest: RWMInterface.IPluginStateRequest,
 }
 
-const mapStateToProps = (state: IAppState) => {
-
-    const plugin = state.wyndpostools.plugins[RWMEnum.EPluginName.LINEDISPLAY] as RWMInterface.IPluginState
+const mapStateToProps = (state: any) => {
+    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.LINEDISPLAY])  as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
 
     return {
         name: RWMEnum.EPluginName.LINEDISPLAY,
-        started: plugin ? plugin.isStarted : null,
-        lineDisplayRequest:plugin ? plugin.request: null,
+        started: plugin ? plugin.get("isStarted") : null,
+        lineDisplayRequest:plugin ? plugin.get("request"): null,
     }
 }
 

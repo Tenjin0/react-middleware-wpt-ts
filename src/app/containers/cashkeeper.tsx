@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import CashkeeperComponent from "../components/cashkeeper"
 import { IAppState } from '../interface';
-import { RWMInterface, CashKeeper } from '@wynd/redux-wps-middleware';
+import { RWMInterface, RWMEnum, CashKeeper } from '@wynd/redux-wps-middleware';
 
 
 export interface ICashkeeperContainerProps {
@@ -14,15 +14,16 @@ export interface ICashkeeperContainerProps {
     paymentTypes: CashKeeper.IPaymentType[]
 }
 
-const mapStateToProps = (state: IAppState) => {
+const mapStateToProps = (state: any) => {
 
-    const plugin = state.wyndpostools.plugins["cashkeeper"] as CashKeeper.IPluginState
+    const plugin = state.wyndpostools.getIn(["plugins", RWMEnum.EPluginName.CASHKEEPER]) as any
+
     return {
         name: "cashkeeper",
-        started: plugin ? plugin.isInitialized : null,
-        cashkeeperRequest: plugin ? plugin.transactionRequest : null,
-        isTransactionRunning: plugin ? plugin.isTransactionRunning : null,
-        paymentTypes: plugin ? plugin.responses.payment_types : null
+        started: plugin ? plugin.get("isInitialized") : null,
+        cashkeeperRequest: plugin ? plugin.get("transactionRequest") : null,
+        isTransactionRunning: plugin ? plugin.get("isTransactionRunning") : null,
+        paymentTypes: plugin ? plugin.getIn(["responses", "payment_types"]) : null
     }
 }
 

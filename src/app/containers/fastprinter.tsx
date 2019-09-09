@@ -14,13 +14,12 @@ export interface IFastprinterContainerProps {
     clearFastprinterRequest: (pluginName: RWMEnum.EPluginName, subField: RWMEnum.ESubField) => void
 }
 
-const mapStateToProps = (state: IAppState) => {
-
-    const plugin = state.wyndpostools.plugins["fastprinter"] as RWMInterface.IPluginState
+const mapStateToProps = (state: any) => {
+    const plugin = state.wyndpostools.getIn(["plugins", "fastprinter"]) as Map<keyof RWMInterface.IPluginState,  RWMInterface.IPluginState>
     return {
         name: "fastprinter",
-        started: plugin ? plugin.isStarted : null,
-        fastprinterRequest: plugin ? plugin.request : null
+        started: plugin ? plugin.get("isStarted") : null,
+        fastprinterRequest: plugin ? plugin.get("request") : null
     }
 }
 
