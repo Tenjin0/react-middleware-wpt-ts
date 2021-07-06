@@ -19,8 +19,8 @@ const mapStateToProps = (state: IAppState) => {
 	return {
 
 		name: RWMEnum.EPluginName.RFIDUPOS,
-		opened: plugin.opened,
-		open: plugin.open,
+		opened: plugin ? plugin.opened : false,
+		open: plugin ? plugin.open : null,
 		started: plugin ? plugin.isInitialized : false,
 		transaction: plugin && plugin.pushes["transaction.update"] ? plugin.pushes["transaction.update"] : RfidUpos.Controller.defaultTransaction
 	}

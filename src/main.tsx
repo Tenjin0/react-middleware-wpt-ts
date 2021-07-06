@@ -10,9 +10,9 @@ import "./app/app.scss";
 
 import { emit, fastprinter, universalTerminal, msrreader,
     logs, configuration,
-     cashkeeper, cashdrawer, balance,  WPTController, linedisplay, system, rfidUpos } from "@wynd/redux-wps-middleware"
+     cashkeeper, cashdrawer, balance,  WPTController, linedisplay, system, wpsManager, printer, RWMEnum } from "@wynd/redux-wps-middleware"
 
-interface IMyWindow extends Window {
+     interface IMyWindow extends Window {
     store: typeof store;
     addTodo: typeof addTodo;
     emit: typeof emit;
@@ -27,6 +27,7 @@ interface IMyWindow extends Window {
     Logs: WPTController
     System: WPTController
     RfidUpos: WPTController
+    Printer: WPTController
 }
 
 declare var window: IMyWindow;
@@ -45,7 +46,8 @@ window.CashDrawer = cashdrawer
 window.LineDisplay = linedisplay
 window.Logs = logs
 window.System = system
-window.RfidUpos = rfidUpos
+window.RfidUpos = wpsManager.getController(RWMEnum.EPluginName.RFIDUPOS)
+window.Printer = printer
 
 render(
     <Provider store={store}>
