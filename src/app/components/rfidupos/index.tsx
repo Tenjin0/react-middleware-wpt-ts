@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Form, Row, Col, Button, Card } from 'react-bootstrap';
-import { RWMEnum, RfidUpos, rfidUpos} from "@wynd/redux-wps-middleware"
+import { Row, Col } from 'reactstrap';
+import { RWMEnum, rfidUpos} from "@wynd/redux-wps-middleware"
 
 import AppFieldSet from "../common/fieldset"
 import RfidUposOpen from "./open"

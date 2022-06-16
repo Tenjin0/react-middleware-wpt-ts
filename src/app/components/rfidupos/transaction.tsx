@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RfidUpos, rfidUpos } from "@wynd/redux-wps-middleware"
-import { Form, Row, Col, Button, Card } from "react-bootstrap";
+import { Form, Row, Col, Button, Card, CardHeader, CardTitle, CardBody, FormGroup, Label, Input } from "reactstrap";
 
 export interface IRidUposTransactionProps {
 	status: RfidUpos.TStatus
@@ -70,30 +70,30 @@ export default class RidUposTransaction extends React.Component<IRidUposTransact
         const controlSize = nameSize < 12 ? 12 - nameSize : 12
 		return (
 			<Card>
-			<Card.Header>
-				<Card.Title>Transaction</Card.Title>
-			</Card.Header>
-			<Card.Body>
+			<CardHeader>
+				<CardTitle>Transaction</CardTitle>
+			</CardHeader>
+			<CardBody>
 				<Form id="rfidupos-transaction" onSubmit={this.onSubmit}>
-					<Form.Group as={Row} controlId="rdifuposTransactionID">
-						<Form.Label column sm={nameSize}>
+					<FormGroup>
+						<Label sm={nameSize}>
 							ID
-						</Form.Label>
+						</Label>
 						<Col sm={controlSize}>
-							<Form.Control type="number" data-field="id" placeholder="id: 1" value={String(this.state.id)} onChange={this.onInputChange}/>
+							<Input type="number" data-field="id" placeholder="id: 1" value={String(this.state.id)} onChange={this.onInputChange}/>
 						</Col>
-					</Form.Group>
-					<Form.Group as={Row} controlId="rdifuposTransactionType">
-						<Form.Label column sm={nameSize}>
+					</FormGroup>
+					<FormGroup>
+						<Label sm={nameSize}>
 							Type
-						</Form.Label>
+						</Label>
 						<Col sm={controlSize}>
-							<Form.Control as="select" data-field="type" value={this.state.type} onChange={this.onInputChange}>
+							<Input type="select" data-field="type" value={this.state.type} onChange={this.onInputChange}>
 								<option>SALE</option>
 								<option>RETURN</option>
-							</Form.Control>
+							</Input>
 						</Col>
-					</Form.Group>
+					</FormGroup>
 					<div className="d-flex justify-content-end">
 						{
 							RfidUpos.EStatus.STARTED !== this.props.status &&
@@ -124,7 +124,7 @@ export default class RidUposTransaction extends React.Component<IRidUposTransact
 						}
 					</div>
 				</Form>
-			</Card.Body>
+			</CardBody>
 		</Card>
 		);
 	}

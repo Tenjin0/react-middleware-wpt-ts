@@ -1,18 +1,18 @@
 import * as React from "react"
-import { Card, } from 'react-bootstrap';
+import { Card, CardBody, CardHeader, CardTitle, } from 'reactstrap';
 
 interface IFieldsetProps {
     name: string,
 }
 
-const CardApp: React.SFC<IFieldsetProps> = (props) => {
+const CardApp: React.FunctionComponent<IFieldsetProps> = (props) => {
     return <Card style={{marginTop: "15px"}}>
-    <Card.Header>
-        <Card.Title>{props.name}</Card.Title>
-    </Card.Header>
-    <Card.Body>
+    <CardHeader>
+        <CardTitle>{props.name}</CardTitle>
+    </CardHeader>
+    <CardBody>
         {props.children}
-    </Card.Body>
+    </CardBody>
     </Card>
 }
 

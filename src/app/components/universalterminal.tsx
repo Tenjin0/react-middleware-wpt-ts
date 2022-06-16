@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { RWMEnum, universalTerminal, UniversalTerminal} from '@wynd/redux-wps-middleware';
+
 import { IUniversalTerminalContainerProps } from '../containers/universalterminal';
 import AppFieldSet from "./common/fieldset"
-import { RWMEnum, universalTerminal, UniversalTerminal} from '@wynd/redux-wps-middleware';
 
 export interface IUniversalTerminalState {
     amount: number

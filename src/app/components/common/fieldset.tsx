@@ -6,6 +6,7 @@ interface IFieldsetProps {
     name: string,
     started: boolean,
     status: RWMEnum.ERequestStatus
+    version?: string
 }
 
 interface IStatusProps {
@@ -13,7 +14,7 @@ interface IStatusProps {
 }
 
 interface IStatusRequestProps {
-    status: RWMEnum.ERequestStatus
+    status: RWMEnum.ERequestStatus | string
 }
 
 const StatusPlugin: React.SFC<IStatusProps> = (props) => {
@@ -59,7 +60,7 @@ const Fieldset: React.SFC<IFieldsetProps> = (props) => {
             </span>
             <span>
                 {StatusRequest({
-                    status: props.status
+                    status: props.version || props.status
                 })}
             </span>
             </h5>

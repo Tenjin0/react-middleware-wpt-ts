@@ -1,7 +1,7 @@
 const path = require('path'),
     express = require('express'),
     app = express(),
-    port = process.env.PORT || 3000;
+    port = process.env.PORT || 5000;
     NODE_ENV = process.env.NODE_ENV ? process.env.NODE_ENV : "development"
 
 if (NODE_ENV === 'development') {

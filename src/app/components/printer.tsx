@@ -2,9 +2,7 @@ import * as React from 'react';
 import { IPrinterContainerProps } from "../containers/printer"
 import AppFieldSet from "./common/fieldset"
 import { RWMEnum, printer } from '@wynd/redux-wps-middleware'
-import { Form, Row, Col, Button, Card } from 'react-bootstrap';
-
-
+import { Form, Row, Col, Button, Card, FormGroup, Label, Input } from 'reactstrap';
 export interface IPrinterState {
     text: string
 }
@@ -63,14 +61,13 @@ export default class Fastprinter extends React.Component<IPrinterContainerProps,
         const controlSize = nameSize < 12 ? 12 - nameSize : 12
         return (
             <AppFieldSet name={this.props.name} started={this.props.started} status={this.props.printerRequest ? this.props.printerRequest.status : RWMEnum.ERequestStatus.NONE}>
-
                 <Form>
-                    <Form.Group as={Row} controlId="printerNames">
-                        <Form.Label column sm={nameSize}>
+                    <FormGroup>
+                        <Label sm={nameSize}>
                             Name
-						</Form.Label>
+						</Label>
                         <Col sm={controlSize}>
-                            <Form.Control as="select" data-field="type">
+                            <Input data-field="type" type="select">
                                 {
                                     this.props.printers.map((printer) => {
                                         return (
@@ -80,17 +77,17 @@ export default class Fastprinter extends React.Component<IPrinterContainerProps,
                                         )
                                     })
                                 }
-                            </Form.Control>
+                            </Input>
                         </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="printerText">
-                        <Form.Label column sm={nameSize}>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label sm={nameSize}>
                             text
-						</Form.Label>
+						</Label>
                         <Col sm={controlSize}>
-                            <Form.Control type="text" placeholder="Enter email" onChange={this.onChangeText} value={this.state.text}/>
+                            <Input type="text" placeholder="Enter email" onChange={this.onChangeText} value={this.state.text}/>
                         </Col>
-                    </Form.Group>
+                    </FormGroup>
                     <div className="d-flex justify-content-end">
                         <Button disabled={this.props.printerRequest.status === RWMEnum.ERequestStatus.RUNNING} variant="primary" type="button" onClick={this.onClickHandler}>Print Text</Button>
                         <Button disabled={this.props.printerRequest.status === RWMEnum.ERequestStatus.RUNNING} variant="primary" type="button" onClick={this.onClickHTML}>Print HTML</Button>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Table } from 'reactstrap';
 import { RfidUpos, rfidUpos } from '@wynd/redux-wps-middleware';
 
 import { faHome } from "@fortawesome/free-solid-svg-icons";

@@ -1,11 +1,11 @@
-
 import * as React from "react";
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
 import store from "./app/store"
 import { addTodo } from "./app/actions"
-import App from "./app/App"
+import App from "./app/containers/App"
+
 import "./app/app.scss";
 
 import { emit, fastprinter, universalTerminal, msrreader,
